@@ -1,0 +1,69 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model TelegramUser {
+  id                    BigInt @id @unique
+  first_name             String?
+  username              String?
+  createdAt             DateTime @default(now())
+
+  userWithGroup         UserWithGroup[]
+  userWithSubscription  UserWithSubscription[]
+}
+
+model UserWithGroup {
+  userId                BigInt
+  user                  TelegramUser @relation(fields: [userId], references: [id])
+  groupId               Int
+  group                 Group @relation(fields: [groupId], references: [id])
+
+  @@id([userId, groupId])
+}
+
+model Group {
+  id                    Int @id @default(autoincrement()) @unique
+  code                  String
+  facultyId             Int
+  faculty               Faculty @relation(fields: [facultyId], references: [id])
+  grade                 Int @default(1)
+  studyType             Int @default(0)
+  
+  userWithGroup         UserWithGroup[]
+}
+
+model UserWithSubscription {
+  userId                BigInt
+  user                  TelegramUser @relation(fields: [userId], references: [id])
+  subscriptionId        Int
+  subscription          Subscription @relation(fields: [subscriptionId], references: [id])
+
+  @@id([userId, subscriptionId])
+}
+
+model Faculty {
+  id                    Int @id @default(autoincrement())
+  name                  String
+  groups                Group[]
+}
+
+model Subscription {
+  id                    Int @id @default(autoincrement())
+  name                  String
+  userWithSubscription  UserWithSubscription[]
+}
+
+model User {
+  id                    String @id @default(cuid())
+  name                  String @unique
+  hashedPassword        String
+  createdAt             DateTime @default(now())
+}

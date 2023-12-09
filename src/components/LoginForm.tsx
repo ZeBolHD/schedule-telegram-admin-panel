@@ -1,7 +1,52 @@
+"use client";
+
+import { SignInResponse, signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
+
 export const LoginForm = () => {
+	const session = useSession();
+	const router = useRouter();
+
+	useEffect(() => {
+		if (session.status === "authenticated") {
+			router.push("/dashboard");
+		}
+	}, [session.status, router]);
+
+	const checkCredentials = (callback: SignInResponse) => {
+		if (!callback.error && callback.ok) {
+			toast.success("Logged in");
+			router.push("/dashboard");
+		}
+
+		if (callback.error) {
+			toast.error("Wrong credentials");
+		}
+	};
+
+	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		const login = e.currentTarget.login.value;
+		const password = e.currentTarget.password.value;
+
+		signIn("credentials", {
+			username: login,
+			password: password,
+			redirect: false,
+		})
+			.then((callback) => {
+				checkCredentials(callback!);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
+
 	return (
-		<div className="w-[350px]  p-[25px] box-content bg-white rounded-[10px] flex flex-col">
-			<form action="">
+		<div className="w-[350px] p-[25px] box-content bg-white rounded-[10px] flex flex-col">
+			<form onSubmit={handleSubmit}>
 				<h2 className="text-[20px]">Welcome to admin panel</h2>
 				<div className="mt-[20px]">
 					<div className="w-full">
