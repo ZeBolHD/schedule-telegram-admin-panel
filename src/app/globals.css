@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
 body {
-	background-color: black;
+	background-color: #141414;
+	color: #ffffff;
+	width: 100%;
+	height: 100%;
 }

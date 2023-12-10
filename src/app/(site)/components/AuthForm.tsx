@@ -50,7 +50,7 @@ const AuthForm = () => {
 	};
 
 	return (
-		<div className="w-[350px] p-[25px] box-content bg-white rounded-md flex flex-col">
+		<div className="w-[350px] p-[25px] box-content bg-white rounded-md flex flex-col text-black">
 			<form onSubmit={handleSubmit}>
 				<h2 className="text-[20px]">Welcome to admin panel</h2>
 				<div className="mt-[20px] w-full">
