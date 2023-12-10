@@ -36,6 +36,7 @@ model Group {
   faculty               Faculty @relation(fields: [facultyId], references: [id])
   grade                 Int @default(1)
   studyType             Int @default(0)
+  fileId                String?
   
   userWithGroup         UserWithGroup[]
 }
