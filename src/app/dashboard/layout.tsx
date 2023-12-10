@@ -11,9 +11,9 @@ const layout = ({ children }: DashBoardLayoutProps) => {
 	return (
 		<div className="w-full h-full">
 			<Header />
-			<div className="w-full h-full flex">
+			<div className="w-full max-h-full h-full flex">
 				<SideBar />
-				<main>{children}</main>
+				<main className="w-full max-h-full">{children}</main>
 			</div>
 		</div>
 	);

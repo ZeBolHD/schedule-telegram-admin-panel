@@ -1,15 +1,9 @@
 "use client";
 
-import { signOut } from "next-auth/react";
-
 export default function Dashboard() {
-	const handleSignOut = () => {
-		signOut();
-	};
-
 	return (
-		<div>
-			<h1>Dashboard</h1>
+		<div className="w-full h-full flex items-center justify-center box-border">
+			<p className="text-2xl">Select Tab from the sidebar</p>
 		</div>
 	);
 }
