@@ -29,7 +29,16 @@ const Table = ({ groups }: TableProps) => {
               </td>
               <td className="border p-3">{group.grade}</td>
               <td className="border p-3">
-                {group.fileId ? "Download" : "No file"}
+                {group.fileId ? (
+                  <a
+                    href={`/api/groups/download?file_id=${group.fileId}`}
+                    target="_blank"
+                  >
+                    Download
+                  </a>
+                ) : (
+                  "No file"
+                )}
               </td>
             </tr>
           ))}
