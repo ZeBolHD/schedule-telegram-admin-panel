@@ -10,7 +10,19 @@ export async function GET() {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const groups = await prisma.group.findMany({});
+  const groups = await prisma.group.findMany({
+    include: {
+      userWithGroup: {
+        select: {
+          userId: true,
+        },
+      },
+      faculty: true,
+    },
+    orderBy: {
+      id: "asc",
+    },
+  });
 
   return NextResponse.json(groups);
 }
