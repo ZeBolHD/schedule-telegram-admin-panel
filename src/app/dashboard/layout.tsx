@@ -9,7 +9,7 @@ interface DashBoardLayoutProps {
 
 const layout = ({ children }: DashBoardLayoutProps) => {
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-[calc(100vh-82px)]">
       <Header />
       <div className="w-full max-h-full h-full flex">
         <SideBar />
