@@ -11,8 +11,8 @@ datasource db {
 }
 
 model TelegramUser {
-  id                    BigInt @id @unique
-  first_name             String?
+  id                    String @id @unique
+  first_name            String?
   username              String?
   createdAt             DateTime @default(now())
 
@@ -21,7 +21,7 @@ model TelegramUser {
 }
 
 model UserWithGroup {
-  userId                BigInt
+  userId                String
   user                  TelegramUser @relation(fields: [userId], references: [id])
   groupId               Int
   group                 Group @relation(fields: [groupId], references: [id])
@@ -42,7 +42,7 @@ model Group {
 }
 
 model UserWithSubscription {
-  userId                BigInt
+  userId                String
   user                  TelegramUser @relation(fields: [userId], references: [id])
   subscriptionId        Int
   subscription          Subscription @relation(fields: [subscriptionId], references: [id])
