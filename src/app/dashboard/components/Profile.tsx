@@ -15,12 +15,15 @@ const Profile = ({}: ProfileProps) => {
 
   return (
     <div className="flex items-center">
-      <div className="w-10 h-10 rounded-full bg-gray-500 flex items-center justify-center">
-        {firstLetter}
+      <div className="flex items-center">
+        <div className="w-10 h-10 rounded-full bg-gray-500 flex items-center justify-center">
+          {firstLetter}
+        </div>
+        <p className="ml-4">{user?.name}</p>
       </div>
       <button
         type="button"
-        className="ml-6 px-4 py-2 bg-red-500 text-white rounded-md"
+        className="ml-10 px-4 py-2 bg-red-500 text-white rounded-md"
         onClick={handleSignOut}
       >
         Logout
