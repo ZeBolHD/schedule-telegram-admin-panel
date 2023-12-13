@@ -1,9 +1,9 @@
 import { FullGroupType } from "@/types";
 
 const getAllGroups = async () => {
-  const groups = (await fetch("/api/groups").then((res) =>
-    res.json()
-  )) as FullGroupType[];
+  const groups = fetch("/api/groups").then((res) => res.json()) as Promise<
+    FullGroupType[]
+  >;
   return groups;
 };
 

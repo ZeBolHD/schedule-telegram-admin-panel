@@ -7,6 +7,7 @@ import getAllGroups from "@/actions/getAllGroups";
 
 import Statistic from "./components/Statistic";
 import Table from "./components/Table";
+import GroupModal from "./components/GroupModal";
 
 const GroupsPage = () => {
   const [groups, setGroups] = useState<FullGroupType[]>([]);

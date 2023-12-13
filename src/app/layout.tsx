@@ -22,6 +22,7 @@ export default function RootLayout({
       <body className={rubik.className}>
         <AuthContext>
           <ToasterContext />
+          <div id="modal"></div>
           {children}
         </AuthContext>
       </body>
