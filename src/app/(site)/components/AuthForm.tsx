@@ -50,31 +50,31 @@ const AuthForm = () => {
   };
 
   return (
-    <div className="w-[350px] p-[25px] box-content bg-white rounded-md flex flex-col text-black">
+    <div className="w-96 p-8 box-content bg-white rounded-md flex flex-col text-black">
       <form onSubmit={handleSubmit}>
-        <h2 className="text-[20px]">Welcome to admin panel</h2>
-        <div className="mt-[20px] w-full">
+        <h2 className="text-xl">Welcome to admin panel</h2>
+        <div className="mt-5 w-full">
           <label htmlFor="username">Username</label>
           <input
             ref={usernameRef}
             id="username"
-            className="bg-slate-300 w-full mt-[10px] h-[40px] p-[10px] rounded-md focus:border-red-500"
+            className="bg-slate-300 w-full mt-2 h-10 p-3 rounded-md focus:border-red-500"
             type="text"
           />
         </div>
-        <div className="mt-[20px] w-full">
+        <div className="mt-5 w-full">
           <label htmlFor="password">Password</label>
           <input
             ref={passwordRef}
             id="password"
-            className="bg-slate-300 w-full h-[40px] mt-[10px] p-[10px] rounded-md"
+            className="bg-slate-300 w-full h-10 mt-2 p-3 rounded-md"
             type="password"
           />
         </div>
-        <div className="mt-[20px] w-full">
+        <div className="mt-5 w-full">
           <button
             type="submit"
-            className="py-[8px] w-full bg-black text-white text-[16px] rounded-md hover:bg-slate-800 transition duration-300"
+            className="py-2 w-full bg-black text-white text-lg rounded-md hover:bg-slate-800 transition duration-300"
           >
             Login
           </button>
