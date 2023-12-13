@@ -3,6 +3,8 @@
 import Modal from "@/components/Modal";
 import { FullGroupType } from "@/types";
 import { useState } from "react";
+import GroupModal from "./GroupModal";
+import GroupTableItem from "./GroupTableItem";
 
 interface TableProps {
   groups: FullGroupType[];
@@ -10,6 +12,19 @@ interface TableProps {
 
 const Table = ({ groups }: TableProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedGroup, setSelectedGroup] = useState<FullGroupType | null>(
+    null
+  );
+
+  const openGroupEditModal = (group: FullGroupType) => {
+    setIsModalOpen(true);
+    setSelectedGroup(group);
+  };
+
+  const closeGroupEditModal = () => {
+    setIsModalOpen(false);
+    setSelectedGroup(null);
+  };
 
   return (
     <>
@@ -24,45 +39,22 @@ const Table = ({ groups }: TableProps) => {
               <th className="border">Grade</th>
               <th className="border">Users</th>
               <th className="border">File</th>
-              <th className="border"></th>
             </tr>
           </thead>
           <tbody className="text-right">
             {groups.map((group) => (
-              <tr key={group.id} className="">
-                <td className="border text-center p-3">{group.id}</td>
-                <td className="border p-3">{group.code}</td>
-                <td className="border p-3">{group.faculty.name}</td>
-                <td className="border p-3">
-                  {group.studyType === 0 ? "Full Time" : "Part Time"}
-                </td>
-                <td className="border p-3">{group.grade}</td>
-                <td className="border p-3">{group.userWithGroup.length}</td>
-                <td className="border p-3">
-                  {group.fileId ? (
-                    <a
-                      href={`/api/groups/download?file_id=${group.fileId}`}
-                      target="_blank"
-                    >
-                      Download
-                    </a>
-                  ) : (
-                    "No file"
-                  )}
-                </td>
-                <td className="border p-3">
-                  <button type="button" onClick={() => setIsModalOpen(true)}>
-                    Edit
-                  </button>
-                </td>
-              </tr>
+              <GroupTableItem
+                group={group}
+                key={group.id}
+                openGroupEditModal={openGroupEditModal}
+              />
             ))}
           </tbody>
         </table>
       </section>
 
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        bla
+        <GroupModal group={selectedGroup!} onClose={closeGroupEditModal} />
       </Modal>
     </>
   );
