@@ -14,13 +14,14 @@ export async function GET() {
 
   const groups = await prisma.group.findMany({
     include: {
-      userWithGroup: {
+      faculty: true,
+      _count: {
         select: {
-          userId: true,
+          userWithGroup: true,
         },
       },
-      faculty: true,
     },
+
     orderBy: {
       id: "asc",
     },

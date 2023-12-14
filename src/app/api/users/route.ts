@@ -5,11 +5,6 @@ import prisma from "@/libs/prismadb";
 
 import { authOptions } from "../auth/[...nextauth]/route";
 
-//@ts-ignore
-BigInt.prototype.toJSON = function () {
-  return this.toString();
-};
-
 export async function GET() {
   const session = await getServerSession(authOptions);
 
@@ -20,8 +15,17 @@ export async function GET() {
   const users = await prisma.telegramUser.findMany({
     include: {
       userWithGroup: {
-        include: {
-          group: true,
+        select: {
+          group: {
+            select: {
+              code: true,
+            },
+          },
+        },
+      },
+      _count: {
+        select: {
+          userWithGroup: true,
         },
       },
     },

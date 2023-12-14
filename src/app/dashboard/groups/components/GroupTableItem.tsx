@@ -21,7 +21,7 @@ const GroupTableItem = ({ group, openGroupEditModal }: GroupTableItemProps) => {
         {group.studyType === 0 ? "Full Time" : "Part Time"}
       </TableCellItem>
       <TableCellItem>{group.grade}</TableCellItem>
-      <TableCellItem>{group.userWithGroup.length}</TableCellItem>
+      <TableCellItem>{group._count.userWithGroup}</TableCellItem>
       <TableCellItem>
         {group.fileId ? (
           <a
