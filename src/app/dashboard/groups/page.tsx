@@ -7,10 +7,9 @@ import { FullGroupType } from "@/types";
 import getAllGroups from "@/actions/getAllGroups";
 
 import LoadingSpinner from "@/components/LoadingSpinner";
-
+import ErrorFetchBlock from "@/components/ErrorBlock";
 import Statistic from "@/components/Statistic";
 
-import ErrorBlock from "./components/ErrorBlock";
 import GroupTable from "./components/GroupTable";
 
 const GroupsPage = () => {
@@ -41,11 +40,7 @@ const GroupsPage = () => {
   }
 
   if (groups === null) {
-    return (
-      <div className="w-full h-full flex items-center justify-center">
-        <ErrorBlock onRefetch={fetchGroups} />
-      </div>
-    );
+    return <ErrorFetchBlock onRefetch={fetchGroups} />;
   }
 
   return (

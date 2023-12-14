@@ -2,7 +2,7 @@ import TableCellItem from "@/components/Table/TableCellItem";
 import TableRowItem from "@/components/Table/TableRowItem";
 import { FullGroupType } from "@/types";
 
-interface GroupTableItemProps {
+interface GroupTableItemProps extends FullGroupType {
   group: FullGroupType;
   openGroupEditModal: (group: FullGroupType) => void;
 }

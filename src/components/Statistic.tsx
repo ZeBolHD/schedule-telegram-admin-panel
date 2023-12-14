@@ -1,12 +1,10 @@
-import { Group } from "@prisma/client";
-
-type Statistic = {
+export type StatisticItem = {
   label: string;
   data: number;
 };
 
 interface StatisticProps {
-  statisticList: Statistic[];
+  statisticList: StatisticItem[];
 }
 
 const Statistic = ({ statisticList }: StatisticProps) => {

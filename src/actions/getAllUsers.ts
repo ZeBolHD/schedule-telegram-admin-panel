@@ -1,9 +1,10 @@
-import { TelegramUser } from "@prisma/client";
 import axios from "axios";
+
+import { FullTelegramUserType } from "@/types";
 
 const getAllUsers = async () => {
   try {
-    const { data } = await axios.get<TelegramUser[]>("/api/users");
+    const { data } = await axios.get<FullTelegramUserType[]>("/api/users");
     return data;
   } catch (e) {
     return null;
