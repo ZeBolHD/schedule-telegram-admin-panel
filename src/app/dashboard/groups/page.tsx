@@ -6,7 +6,9 @@ import ClipLoader from "react-spinners/ClipLoader";
 import { FullGroupType } from "@/types";
 import getAllGroups from "@/actions/getAllGroups";
 
-import Statistic from "../../../components/Statistic";
+import LoadingSpinner from "@/components/LoadingSpinner";
+
+import Statistic from "@/components/Statistic";
 
 import ErrorBlock from "./components/ErrorBlock";
 import GroupTable from "./components/GroupTable";
@@ -35,11 +37,7 @@ const GroupsPage = () => {
   }, []);
 
   if (isLoading) {
-    return (
-      <div className="w-full h-full flex items-center justify-center">
-        <ClipLoader size={100} color="#ffffff" />
-      </div>
-    );
+    return <LoadingSpinner />;
   }
 
   if (groups === null) {

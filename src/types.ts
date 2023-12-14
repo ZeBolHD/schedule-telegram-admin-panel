@@ -1,4 +1,4 @@
-import { Faculty, Group, UserWithGroup } from "@prisma/client";
+import { Faculty, Group, User, UserWithGroup } from "@prisma/client";
 
 export type FullGroupType = Group & {
   _count: {
@@ -6,3 +6,16 @@ export type FullGroupType = Group & {
   };
   faculty: Faculty;
 };
+
+export type FullUserType =
+  | User
+  | {
+      _count: {
+        userWithGroup: number;
+      };
+      userWithGroup: {
+        group: {
+          code: string;
+        };
+      }[];
+    };
