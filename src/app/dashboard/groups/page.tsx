@@ -5,9 +5,8 @@ import { useEffect, useState } from "react";
 import { FullGroupType } from "@/types";
 import getAllGroups from "@/actions/getAllGroups";
 
-import Statistic from "./components/Statistic";
+import Statistic from "../../../components/Statistic";
 import Table from "./components/Table";
-import GroupModal from "./components/GroupModal";
 
 import ClipLoader from "react-spinners/ClipLoader";
 import ErrorBlock from "./components/ErrorBlock";
@@ -15,6 +14,13 @@ import ErrorBlock from "./components/ErrorBlock";
 const GroupsPage = () => {
   const [groups, setGroups] = useState<FullGroupType[] | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  const statistic = [
+    {
+      label: "Groups",
+      data: groups?.length || 0,
+    },
+  ];
 
   const fetchGroups = async () => {
     setIsLoading(true);
@@ -46,7 +52,7 @@ const GroupsPage = () => {
 
   return (
     <div className="w-full h-full p-10">
-      <Statistic groups={groups} />
+      <Statistic statisticList={statistic} />
       <Table groups={groups} />
     </div>
   );
