@@ -6,10 +6,10 @@ import { FullGroupType } from "@/types";
 import getAllGroups from "@/actions/getAllGroups";
 
 import Statistic from "../../../components/Statistic";
-import Table from "./components/Table";
 
 import ClipLoader from "react-spinners/ClipLoader";
 import ErrorBlock from "./components/ErrorBlock";
+import GroupTable from "./components/GroupTable";
 
 const GroupsPage = () => {
   const [groups, setGroups] = useState<FullGroupType[] | null>(null);
@@ -53,7 +53,7 @@ const GroupsPage = () => {
   return (
     <div className="w-full h-full p-10">
       <Statistic statisticList={statistic} />
-      <Table groups={groups} />
+      <GroupTable groups={groups} />
     </div>
   );
 };

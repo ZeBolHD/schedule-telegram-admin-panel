@@ -1,3 +1,5 @@
+import TableCellItem from "@/components/Table/TableCellItem";
+import TableRowItem from "@/components/Table/TableRowItem";
 import { FullGroupType } from "@/types";
 
 interface GroupTableItemProps {
@@ -11,16 +13,16 @@ const GroupTableItem = ({ group, openGroupEditModal }: GroupTableItemProps) => {
   };
 
   return (
-    <tr className="">
-      <td className="border text-center p-3">{group.id}</td>
-      <td className="border p-3">{group.code}</td>
-      <td className="border p-3">{group.faculty.name}</td>
-      <td className="border p-3">
+    <TableRowItem>
+      <TableCellItem>{group.id}</TableCellItem>
+      <TableCellItem>{group.code}</TableCellItem>
+      <TableCellItem>{group.faculty.name}</TableCellItem>
+      <TableCellItem>
         {group.studyType === 0 ? "Full Time" : "Part Time"}
-      </td>
-      <td className="border p-3">{group.grade}</td>
-      <td className="border p-3">{group.userWithGroup.length}</td>
-      <td className="border p-3">
+      </TableCellItem>
+      <TableCellItem>{group.grade}</TableCellItem>
+      <TableCellItem>{group.userWithGroup.length}</TableCellItem>
+      <TableCellItem>
         {group.fileId ? (
           <a
             href={`/api/groups/download?file_id=${group.fileId}`}
@@ -31,13 +33,13 @@ const GroupTableItem = ({ group, openGroupEditModal }: GroupTableItemProps) => {
         ) : (
           "No file"
         )}
-      </td>
-      <td className="border p-3">
+      </TableCellItem>
+      <TableCellItem>
         <button type="button" onClick={openModal}>
           Edit
         </button>
-      </td>
-    </tr>
+      </TableCellItem>
+    </TableRowItem>
   );
 };
 
