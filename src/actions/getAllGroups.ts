@@ -1,10 +1,13 @@
 import { FullGroupType } from "@/types";
+import axios from "axios";
 
 const getAllGroups = async () => {
-  const groups = fetch("/api/groups").then((res) => res.json()) as Promise<
-    FullGroupType[]
-  >;
-  return groups;
+  try {
+    const { data } = await axios.get<FullGroupType[]>("/api/groups");
+    return data;
+  } catch (e) {
+    return null;
+  }
 };
 
 export default getAllGroups;
