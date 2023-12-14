@@ -1,5 +1,6 @@
-import { FullGroupType } from "@/types";
 import axios from "axios";
+
+import { FullGroupType } from "@/types";
 
 const getAllGroups = async () => {
   try {

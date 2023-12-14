@@ -1,8 +1,10 @@
-import { NextRequest, NextResponse } from "next/server";
-import { authOptions } from "../../auth/[...nextauth]/route";
-import { getServerSession } from "next-auth";
-import { TELEGRAM_DOWNLOAD_URL, TELEGRAM_GETFILE_URL } from "@/consts";
 import axios, { AxiosError } from "axios";
+import { NextRequest, NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
+
+import { TELEGRAM_DOWNLOAD_URL, TELEGRAM_GETFILE_URL } from "@/consts";
+
+import { authOptions } from "../../auth/[...nextauth]/route";
 
 export async function GET(req: NextRequest) {
   const session = await getServerSession(authOptions);

@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
-import { authOptions } from "../auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
+
 import prisma from "@/libs/prismadb";
+
+import { authOptions } from "../auth/[...nextauth]/route";
 
 //@ts-ignore
 BigInt.prototype.toJSON = function () {

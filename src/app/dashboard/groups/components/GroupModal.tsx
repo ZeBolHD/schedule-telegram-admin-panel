@@ -1,5 +1,6 @@
-import { FullGroupType } from "@/types";
 import { useState } from "react";
+
+import { FullGroupType } from "@/types";
 
 interface GroupModalProps {
   group: FullGroupType;

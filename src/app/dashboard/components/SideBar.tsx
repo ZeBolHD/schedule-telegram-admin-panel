@@ -1,7 +1,8 @@
 "use client";
 
-import useRoutes from "@/hooks/useRoutes";
 import Link from "next/link";
+
+import useRoutes from "@/hooks/useRoutes";
 
 const SideBar = () => {
   const routes = useRoutes();

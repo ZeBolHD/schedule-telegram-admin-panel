@@ -1,8 +1,9 @@
 "use client";
 
-import getAllUsers from "@/actions/getAllUsers";
 import { TelegramUser } from "@prisma/client";
 import { useEffect, useState } from "react";
+
+import getAllUsers from "@/actions/getAllUsers";
 
 const UsersPage = () => {
   const [users, setUsers] = useState<TelegramUser[] | null>([]);

@@ -1,4 +1,5 @@
 import Link from "next/link";
+
 import Profile from "./Profile";
 
 interface HeaderProps {}

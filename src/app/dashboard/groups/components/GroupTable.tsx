@@ -1,11 +1,13 @@
 "use client";
 
+import { useState } from "react";
+
 import Modal from "@/components/Modal";
 import { FullGroupType } from "@/types";
-import { useState } from "react";
+import Table from "@/components/Table";
+
 import GroupModal from "./GroupModal";
 import GroupTableItem from "./GroupTableItem";
-import Table from "@/components/Table";
 
 interface TableProps {
   groups: FullGroupType[];

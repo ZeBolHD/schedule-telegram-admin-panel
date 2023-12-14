@@ -1,13 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import ClipLoader from "react-spinners/ClipLoader";
 
 import { FullGroupType } from "@/types";
 import getAllGroups from "@/actions/getAllGroups";
 
 import Statistic from "../../../components/Statistic";
 
-import ClipLoader from "react-spinners/ClipLoader";
 import ErrorBlock from "./components/ErrorBlock";
 import GroupTable from "./components/GroupTable";
 
