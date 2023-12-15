@@ -49,7 +49,7 @@ const GroupsPage = () => {
       <div className="flex items-center justify-between">
         <Statistic statisticList={statistic} />
 
-        <GroupAdd />
+        <GroupAdd fetchGroups={fetchGroups} />
       </div>
       <GroupTable groups={groups} />
     </div>
