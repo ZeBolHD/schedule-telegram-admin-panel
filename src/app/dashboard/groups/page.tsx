@@ -11,6 +11,7 @@ import ErrorFetchBlock from "@/components/ErrorBlock";
 import Statistic from "@/components/Statistic";
 
 import GroupTable from "./components/GroupTable";
+import GroupAdd from "./components/GroupAdd";
 
 const GroupsPage = () => {
   const [groups, setGroups] = useState<FullGroupType[] | null>(null);
@@ -45,7 +46,11 @@ const GroupsPage = () => {
 
   return (
     <div className="w-full h-full p-10">
-      <Statistic statisticList={statistic} />
+      <div className="flex items-center justify-between">
+        <Statistic statisticList={statistic} />
+
+        <GroupAdd />
+      </div>
       <GroupTable groups={groups} />
     </div>
   );

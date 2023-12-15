@@ -9,8 +9,8 @@ interface StatisticProps {
 
 const Statistic = ({ statisticList }: StatisticProps) => {
   return (
-    <section className="w-full">
-      <ul className=" text-black text-xl grid gap-10 auto-cols-min grid-flow-col">
+    <section>
+      <ul className="text-black text-xl grid gap-10 auto-cols-min grid-flow-col">
         {statisticList.map((statistic) => (
           <li
             key={statistic.label}
