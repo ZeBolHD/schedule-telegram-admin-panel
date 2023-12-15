@@ -31,7 +31,7 @@ model UserWithGroup {
 
 model Group {
   id                    Int @id @default(autoincrement()) @unique
-  code                  String
+  code                  String @unique
   facultyId             Int
   faculty               Faculty @relation(fields: [facultyId], references: [id])
   grade                 Int @default(1)
