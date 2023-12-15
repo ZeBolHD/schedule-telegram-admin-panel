@@ -6,14 +6,15 @@ import Modal from "@/components/Modal";
 import { FullGroupType } from "@/types";
 import Table from "@/components/Table";
 
-import GroupModal from "./GroupModal";
+import GroupEditModal from "./GroupEditModal";
 import GroupTableItem from "./GroupTableItem";
 
 interface TableProps {
+  fetchGroups: () => void;
   groups: FullGroupType[];
 }
 
-const GroupTable = ({ groups }: TableProps) => {
+const GroupTable = ({ groups, fetchGroups }: TableProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedGroup, setSelectedGroup] = useState<FullGroupType | null>(
     null
@@ -51,7 +52,11 @@ const GroupTable = ({ groups }: TableProps) => {
         ))}
       </Table>
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <GroupModal group={selectedGroup!} onClose={closeGroupEditModal} />
+        <GroupEditModal
+          group={selectedGroup!}
+          onClose={closeGroupEditModal}
+          fetchGroups={fetchGroups}
+        />
       </Modal>
     </>
   );

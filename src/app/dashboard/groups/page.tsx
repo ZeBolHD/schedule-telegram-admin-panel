@@ -51,7 +51,7 @@ const GroupsPage = () => {
 
         <GroupAdd fetchGroups={fetchGroups} />
       </div>
-      <GroupTable groups={groups} />
+      <GroupTable groups={groups} fetchGroups={fetchGroups} />
     </div>
   );
 };

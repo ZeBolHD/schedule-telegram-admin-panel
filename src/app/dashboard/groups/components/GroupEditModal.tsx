@@ -1,13 +1,20 @@
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 
 import { FullGroupType } from "@/types";
+import deleteGroup from "@/actions/deleteGroup";
 
-interface GroupModalProps {
+interface GroupEditModalProps {
+  fetchGroups: () => void;
   group: FullGroupType;
   onClose: () => void;
 }
 
-const GroupModal = ({ group, onClose }: GroupModalProps) => {
+const GroupEditModal = ({
+  group,
+  onClose,
+  fetchGroups,
+}: GroupEditModalProps) => {
   const [file, setFile] = useState<File>();
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,30 +29,23 @@ const GroupModal = ({ group, onClose }: GroupModalProps) => {
     if (!file) {
       return;
     }
+  };
 
-    // fetch("/api/groups/edit", {
-    //   method: "PUT",
-    //   body: file,
-    //   headers: {
-    //     "content-type": file.type,
-    //     "content-length": `${file.size}`,
-    //   },
-    // });
+  const onGroupDelete = async () => {
+    try {
+      await deleteGroup(group.id);
+      fetchGroups();
+      onClose();
+      toast.success(`Group ${group.code} deleted successfully`);
+    } catch (e) {
+      toast.error("Something went wrong");
+    }
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <h2 className="text-xl">Edit Group</h2>
       <div className="mt-5 w-full">
-        {/* <label className="text-lg" htmlFor="code">
-            Code
-          </label>
-          <input
-            id="code"
-            value={group.code}
-            className="bg-slate-300 w-full mt-2 h-10 p-3 rounded-md focus:border-red-500"
-            type="text"
-          /> */}
         <h3 className="text-lg">Code: {group.code}</h3>
       </div>
       <div className="mt-5 w-full">
@@ -74,8 +74,15 @@ const GroupModal = ({ group, onClose }: GroupModalProps) => {
       >
         Edit
       </button>
+      <button
+        type="button"
+        className="w-full px-4 py-2 mt-5 bg-red-500 cursor-pointer text-white rounded-md hover:bg-red-600"
+        onClick={onGroupDelete}
+      >
+        Delete
+      </button>
     </form>
   );
 };
 
-export default GroupModal;
+export default GroupEditModal;
