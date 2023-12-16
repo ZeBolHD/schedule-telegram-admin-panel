@@ -1,13 +1,22 @@
 import { useState } from "react";
 import { toast } from "react-hot-toast";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 import { FullGroupType } from "@/types";
 import deleteGroup from "@/actions/deleteGroup";
+import { CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 
 interface GroupEditModalProps {
   fetchGroups: () => void;
   group: FullGroupType;
   onClose: () => void;
+}
+
+interface GroupEditFormInput {
+  file: File;
 }
 
 const GroupEditModal = ({
@@ -17,15 +26,15 @@ const GroupEditModal = ({
 }: GroupEditModalProps) => {
   const [file, setFile] = useState<File>();
 
+  const { register, handleSubmit } = useForm<GroupEditFormInput>();
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setFile(e.target.files[0]);
     }
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
+  const onSubmit: SubmitHandler<GroupEditFormInput> = (data) => {
     if (!file) {
       return;
     }
@@ -43,44 +52,50 @@ const GroupEditModal = ({
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2 className="text-xl">Edit Group</h2>
-      <div className="mt-5 w-full">
-        <h3 className="text-lg">Code: {group.code}</h3>
-      </div>
-      <div className="mt-5 w-full">
-        <label className="block mb-2 text-lg" htmlFor="file_input">
-          Upload file
-        </label>
-        <input
-          className="w-full text-md  text-gray-900 border rounded-lg cursor-pointer 
-             file:bg-slate-300 file:border-0 file:p-2 file:cursor-pointer bg-slate-300  focus:outline-none"
-          aria-describedby="file_input_help"
-          id="file_input"
-          type="file"
-          onChange={handleFileChange}
-        />
-        <p
-          className="mt-1 text-sm text-gray-500 dark:text-gray-300"
-          id="file_input_help"
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <CardHeader>
+        <h3 className="text-xl">Edit Group</h3>
+      </CardHeader>
+      <CardContent>
+        <div className="w-full">
+          <h3 className="text-lg">Code: {group.code}</h3>
+        </div>
+        <div className="mt-5 w-full">
+          <Label htmlFor="file_input" className="text-lg font-normal">
+            Upload file
+          </Label>
+          <Input
+            {...register("file", { required: true })}
+            className="cursor-pointer mt-2"
+            id="file"
+            type="file"
+            onChange={handleFileChange}
+          />
+          <p
+            className="mt-1 text-sm text-gray-500 dark:text-gray-300"
+            id="file_input_help"
+          >
+            PDF (MAX. 20MB).
+          </p>
+        </div>
+      </CardContent>
+      <CardFooter className="flex justify-end">
+        <Button
+          type="button"
+          variant="ghost"
+          className=" hover:bg-red-600 hover:text-white"
+          onClick={onGroupDelete}
         >
-          PDF (MAX. 20MB).
-        </p>
-      </div>
-
-      <button
-        type="submit"
-        className="w-full px-4 py-2 mt-5 bg-blue-500 cursor-pointer text-white rounded-md hover:bg-blue-600"
-      >
-        Edit
-      </button>
-      <button
-        type="button"
-        className="w-full px-4 py-2 mt-5 bg-red-500 cursor-pointer text-white rounded-md hover:bg-red-600"
-        onClick={onGroupDelete}
-      >
-        Delete
-      </button>
+          Delete
+        </Button>
+        <Button
+          type="submit"
+          variant={"default"}
+          className="ml-5 bg-blue-500 hover:bg-blue-600"
+        >
+          Edit
+        </Button>
+      </CardFooter>
     </form>
   );
 };

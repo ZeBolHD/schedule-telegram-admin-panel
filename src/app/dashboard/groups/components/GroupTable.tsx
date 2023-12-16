@@ -50,7 +50,7 @@ const GroupTable = ({ groups, fetchGroups }: TableProps) => {
 
   return (
     <>
-      <ScrollArea className="h-5/6 mt-10 rounded-md border">
+      <ScrollArea className="h-5/6 mt-10 rounded-md border border-gray-500">
         <Table className="border-collapse text-md">
           <TableHeader>
             <TableRow>
