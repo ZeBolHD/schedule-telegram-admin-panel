@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { SubmitHandler, useForm } from "react-hook-form";
+import axios from "axios";
 
 import { FullGroupType } from "@/types";
 import deleteGroup from "@/actions/deleteGroup";
@@ -34,10 +35,19 @@ const GroupEditModal = ({
     }
   };
 
-  const onSubmit: SubmitHandler<GroupEditFormInput> = (data) => {
+  const onSubmit: SubmitHandler<GroupEditFormInput> = async (data) => {
     if (!file) {
       return;
     }
+
+    const formData = new FormData();
+    formData.append("document", file, file.name);
+
+    await axios.post("/api/schedule?groupId=" + group.id, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
   };
 
   const onGroupDelete = async () => {

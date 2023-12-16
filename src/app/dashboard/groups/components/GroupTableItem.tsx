@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { FullGroupType } from "@/types";
@@ -22,12 +24,9 @@ const GroupTableItem = ({ group, openGroupEditModal }: GroupTableItemProps) => {
       <TableCell>{group._count.userWithGroup}</TableCell>
       <TableCell>
         {group.fileId ? (
-          <a
-            href={`/api/groups/download?file_id=${group.fileId}`}
-            target="_blank"
-          >
+          <Link href={`/api/download?file_id=${group.fileId}`} target="_blank">
             Download
-          </a>
+          </Link>
         ) : (
           "No file"
         )}
