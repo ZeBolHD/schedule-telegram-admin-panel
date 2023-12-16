@@ -19,24 +19,18 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
+import { GroupCreateType } from "@/types";
+import createGroup from "@/actions/createGroup";
 
-interface GroupAddProps {
+interface GroupCreateProps {
   fetchGroups: () => void;
 }
 
-interface GroupAddFormInput {
-  code: string;
-  grade: string;
-  facultyId: string;
-  studyType: string;
-}
-
-const GroupAdd = ({ fetchGroups }: GroupAddProps) => {
+const GroupCreate = ({ fetchGroups }: GroupCreateProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [faculties, setFaculties] = useState<Faculty[] | null>([]);
 
-  const { register, handleSubmit, control, reset } =
-    useForm<GroupAddFormInput>();
+  const { register, handleSubmit, control, reset } = useForm<GroupCreateType>();
 
   const fetchFaculties = async () => {
     const faculties = await getAllFaculties();
@@ -48,10 +42,10 @@ const GroupAdd = ({ fetchGroups }: GroupAddProps) => {
     reset();
   };
 
-  const onSubmit: SubmitHandler<GroupAddFormInput> = async (data) => {
+  const onSubmit: SubmitHandler<GroupCreateType> = async (data) => {
     try {
-      const res = await axios.post("/api/groups/add", data);
-      if (res.status === 200) {
+      const group = await createGroup(data);
+      if (group) {
         toggleModal();
         reset();
         fetchGroups();
@@ -184,4 +178,4 @@ const GroupAdd = ({ fetchGroups }: GroupAddProps) => {
   );
 };
 
-export default GroupAdd;
+export default GroupCreate;

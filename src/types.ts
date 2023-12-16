@@ -17,3 +17,10 @@ export type FullTelegramUserType = TelegramUser & {
     };
   }[];
 };
+
+export type GroupCreateType = {
+  code: string;
+  grade: string;
+  facultyId: string;
+  studyType: string;
+};
