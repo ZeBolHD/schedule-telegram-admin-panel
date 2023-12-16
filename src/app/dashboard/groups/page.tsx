@@ -36,7 +36,7 @@ const GroupsPage = () => {
   }, []);
 
   if (isLoading) {
-    return <LoadingSpinner />;
+    return <LoadingSpinner size={100} />;
   }
 
   if (groups === null) {
