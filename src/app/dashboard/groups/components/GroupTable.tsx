@@ -4,7 +4,15 @@ import { useState } from "react";
 
 import Modal from "@/components/Modal";
 import { FullGroupType } from "@/types";
-import Table from "@/components/Table";
+
+import {
+  Table,
+  TableBody,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 import GroupEditModal from "./GroupEditModal";
 import GroupTableItem from "./GroupTableItem";
@@ -42,15 +50,28 @@ const GroupTable = ({ groups, fetchGroups }: TableProps) => {
 
   return (
     <>
-      <Table labels={tableLabels}>
-        {groups.map((group) => (
-          <GroupTableItem
-            group={group}
-            key={group.id}
-            openGroupEditModal={openGroupEditModal}
-          />
-        ))}
-      </Table>
+      <ScrollArea className="h-5/6 mt-10 rounded-md border">
+        <Table className="border-collapse text-md">
+          <TableHeader>
+            <TableRow>
+              {tableLabels.map((label) => (
+                <TableHead key={label} className="text-white">
+                  {label}
+                </TableHead>
+              ))}
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {groups.map((group) => (
+              <GroupTableItem
+                key={group.id}
+                group={group}
+                openGroupEditModal={openGroupEditModal}
+              />
+            ))}
+          </TableBody>
+        </Table>
+      </ScrollArea>
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <GroupEditModal
           group={selectedGroup!}

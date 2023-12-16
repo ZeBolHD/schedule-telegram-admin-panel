@@ -1,7 +1,6 @@
-import Table from "@/components/Table";
-import TableRowItem from "@/components/Table/TableRowItem";
-
 import { FullTelegramUserType } from "@/types";
+import { Table, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 import UserTableRowItem from "./UserTableRowItem";
 
@@ -19,11 +18,22 @@ const UserTable = ({ users }: UsersTableProps) => {
   ];
 
   return (
-    <Table labels={tableLabels}>
-      {users.map((user) => (
-        <UserTableRowItem key={user.id} user={user} />
-      ))}
-    </Table>
+    <ScrollArea className="h-5/6 mt-10 rounded-md border">
+      <Table>
+        <TableHeader>
+          <TableRow>
+            {tableLabels.map((label) => (
+              <TableHead key={label} className="text-white">
+                {label}
+              </TableHead>
+            ))}
+          </TableRow>
+        </TableHeader>
+        {users.map((user) => (
+          <UserTableRowItem key={user.id} user={user} />
+        ))}
+      </Table>
+    </ScrollArea>
   );
 };
 

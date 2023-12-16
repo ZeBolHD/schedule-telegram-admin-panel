@@ -1,5 +1,4 @@
-import TableCellItem from "@/components/Table/TableCellItem";
-import TableRowItem from "@/components/Table/TableRowItem";
+import { TableCell, TableRow } from "@/components/ui/table";
 import { FullTelegramUserType } from "@/types";
 
 interface UserTableRowItemProps {
@@ -12,15 +11,13 @@ const UserTableRowItem = ({ user }: UserTableRowItemProps) => {
     .join(", ");
 
   return (
-    <TableRowItem>
-      <TableCellItem>{user.id}</TableCellItem>
-      <TableCellItem>{user.first_name}</TableCellItem>
-      <TableCellItem>{user.username}</TableCellItem>
-      <TableCellItem>{new Date(user.createdAt).toString()}</TableCellItem>
-      <TableCellItem>
-        {followingGroups ? followingGroups : "None"}
-      </TableCellItem>
-    </TableRowItem>
+    <TableRow>
+      <TableCell>{user.id}</TableCell>
+      <TableCell>{user.first_name}</TableCell>
+      <TableCell>{user.username}</TableCell>
+      <TableCell>{new Date(user.createdAt).toString()}</TableCell>
+      <TableCell>{followingGroups ? followingGroups : "None"}</TableCell>
+    </TableRow>
   );
 };
 

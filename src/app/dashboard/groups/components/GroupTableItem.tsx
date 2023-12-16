@@ -1,5 +1,5 @@
-import TableCellItem from "@/components/Table/TableCellItem";
-import TableRowItem from "@/components/Table/TableRowItem";
+import { Button } from "@/components/ui/button";
+import { TableCell, TableRow } from "@/components/ui/table";
 import { FullGroupType } from "@/types";
 
 interface GroupTableItemProps {
@@ -13,16 +13,14 @@ const GroupTableItem = ({ group, openGroupEditModal }: GroupTableItemProps) => {
   };
 
   return (
-    <TableRowItem>
-      <TableCellItem>{group.id}</TableCellItem>
-      <TableCellItem>{group.code}</TableCellItem>
-      <TableCellItem>{group.faculty.name}</TableCellItem>
-      <TableCellItem>
-        {group.studyType === 0 ? "Full Time" : "Part Time"}
-      </TableCellItem>
-      <TableCellItem>{group.grade}</TableCellItem>
-      <TableCellItem>{group._count.userWithGroup}</TableCellItem>
-      <TableCellItem>
+    <TableRow>
+      <TableCell>{group.id}</TableCell>
+      <TableCell>{group.code}</TableCell>
+      <TableCell>{group.faculty.name}</TableCell>
+      <TableCell>{group.studyType === 0 ? "Full Time" : "Part Time"}</TableCell>
+      <TableCell>{group.grade}</TableCell>
+      <TableCell>{group._count.userWithGroup}</TableCell>
+      <TableCell>
         {group.fileId ? (
           <a
             href={`/api/groups/download?file_id=${group.fileId}`}
@@ -33,13 +31,17 @@ const GroupTableItem = ({ group, openGroupEditModal }: GroupTableItemProps) => {
         ) : (
           "No file"
         )}
-      </TableCellItem>
-      <TableCellItem>
-        <button type="button" onClick={openModal}>
+      </TableCell>
+      <TableCell align="right">
+        <Button
+          type="button"
+          onClick={openModal}
+          className="bg-blue-500 hover:bg-blue-600"
+        >
           Edit
-        </button>
-      </TableCellItem>
-    </TableRowItem>
+        </Button>
+      </TableCell>
+    </TableRow>
   );
 };
 
