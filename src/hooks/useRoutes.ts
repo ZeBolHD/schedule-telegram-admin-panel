@@ -1,7 +1,6 @@
+import { UserRound, Users } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
-
-import { FaUserGroup, FaUser } from "react-icons/fa6";
 
 const useRoutes = () => {
   const pathname = usePathname();
@@ -11,13 +10,13 @@ const useRoutes = () => {
       {
         label: "Users",
         href: "/dashboard/users",
-        icon: FaUser,
+        icon: UserRound,
         active: pathname === "/dashboard/users",
       },
       {
         label: "Groups",
         href: "/dashboard/groups",
-        icon: FaUserGroup,
+        icon: Users,
         active: pathname === "/dashboard/groups",
       },
     ];

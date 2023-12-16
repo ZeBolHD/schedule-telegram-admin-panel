@@ -1,9 +1,9 @@
-import ClipLoader from "react-spinners/ClipLoader";
+import { Loader2 } from "lucide-react";
 
 const LoadingSpinner = () => {
   return (
     <div className="w-full h-full flex items-center justify-center">
-      <ClipLoader size={100} color="#ffffff" />
+      <Loader2 size={100} color="#ffffff" className="animate-spin" />
     </div>
   );
 };

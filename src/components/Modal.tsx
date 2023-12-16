@@ -1,7 +1,10 @@
 "use client";
 
 import { createPortal } from "react-dom";
-import { RxCross2 } from "react-icons/rx";
+import { X } from "lucide-react";
+
+import { Card, CardContent, CardHeader } from "./ui/card";
+import { Button } from "./ui/button";
 
 interface ModalProps {
   isOpen: boolean;
@@ -28,17 +31,17 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
     bg-black bg-opacity-30 backdrop-blur-sm z-10"
       onClick={onClickModal}
     >
-      <div className="absolute w-2/6 p-10 bg-white text-black rounded-md shadow shadow-gray-400 z-50">
+      <Card className="absolute  w-[500px] text-black z-50">
         <button
           className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center 
-    text-white text-xl bg-red-500 rounded-full"
+        text-white text-xl bg-red-500 rounded-full"
           type="button"
           onClick={onClose}
         >
-          <RxCross2 />
+          <X color="white" />
         </button>
         {children}
-      </div>
+      </Card>
     </div>,
     portal!
   );

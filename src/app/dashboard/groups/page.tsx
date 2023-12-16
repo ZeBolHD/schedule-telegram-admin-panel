@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import ClipLoader from "react-spinners/ClipLoader";
 
 import { FullGroupType } from "@/types";
 import getAllGroups from "@/actions/getAllGroups";

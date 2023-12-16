@@ -2,15 +2,30 @@
 
 import { SignInResponse, signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import toast from "react-hot-toast";
+import { SubmitHandler, useForm } from "react-hook-form";
+
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+
+interface AuthFormInput {
+  username: string;
+  password: string;
+}
 
 const AuthForm = () => {
   const session = useSession();
   const router = useRouter();
 
-  const usernameRef = useRef<HTMLInputElement>(null);
-  const passwordRef = useRef<HTMLInputElement>(null);
+  const { register, handleSubmit } = useForm<AuthFormInput>();
 
   useEffect(() => {
     if (session.status === "authenticated") {
@@ -29,16 +44,13 @@ const AuthForm = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const credentials = {
-      username: usernameRef.current?.value,
-      password: passwordRef.current?.value,
-    };
+  const onSubmit: SubmitHandler<AuthFormInput> = (data) => {
+    const username = data.username;
+    const password = data.password;
 
     signIn("credentials", {
-      ...credentials,
+      username,
+      password,
       redirect: false,
     })
       .then((callback) => {
@@ -50,37 +62,36 @@ const AuthForm = () => {
   };
 
   return (
-    <div className="w-96 p-8 box-content bg-white rounded-md flex flex-col text-black">
-      <form onSubmit={handleSubmit}>
-        <h2 className="text-xl">Welcome to admin panel</h2>
-        <div className="mt-5 w-full">
-          <label htmlFor="username">Username</label>
-          <input
-            ref={usernameRef}
-            id="username"
-            className="bg-slate-300 w-full mt-2 h-10 p-3 rounded-md focus:border-red-500"
-            type="text"
-          />
-        </div>
-        <div className="mt-5 w-full">
-          <label htmlFor="password">Password</label>
-          <input
-            ref={passwordRef}
-            id="password"
-            className="bg-slate-300 w-full h-10 mt-2 p-3 rounded-md"
-            type="password"
-          />
-        </div>
-        <div className="mt-5 w-full">
-          <button
-            type="submit"
-            className="py-2 w-full bg-black text-white text-lg rounded-md hover:bg-slate-800 transition duration-300"
-          >
+    <Card className="w-96 bg-white rounded-md flex flex-col text-black">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <CardHeader>
+          <h3 className="text-xl">Welcome to admin panel</h3>
+        </CardHeader>
+        <CardContent>
+          <div className="">
+            <Label htmlFor="username">Username</Label>
+            <Input
+              type="text"
+              className="mt-3"
+              {...register("username", { required: true })}
+            />
+          </div>
+          <div className="mt-5">
+            <Label htmlFor="password">Password</Label>
+            <Input
+              type="password"
+              className="mt-3"
+              {...register("password", { required: true })}
+            />
+          </div>
+        </CardContent>
+        <CardFooter>
+          <Button type="submit" variant={"default"} className="w-full">
             Login
-          </button>
-        </div>
+          </Button>
+        </CardFooter>
       </form>
-    </div>
+    </Card>
   );
 };
 

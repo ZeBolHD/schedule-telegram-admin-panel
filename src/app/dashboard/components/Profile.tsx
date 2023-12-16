@@ -4,6 +4,8 @@ import { signOut, useSession } from "next-auth/react";
 import { useState } from "react";
 
 import Modal from "@/components/Modal";
+import { Button } from "@/components/ui/button";
+import { CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 
 interface ProfileProps {}
 
@@ -31,25 +33,29 @@ const Profile = ({}: ProfileProps) => {
           </div>
           <p className="ml-4">{user?.name}</p>
         </div>
-        <button
+        <Button
+          variant={"destructive"}
           type="button"
-          className="ml-10 px-4 py-2 bg-red-500 text-white rounded-md"
           onClick={toggleModal}
+          className="ml-10"
         >
           Logout
-        </button>
+        </Button>
       </div>
       <Modal isOpen={isModalOpen} onClose={toggleModal}>
-        <div className="text-center">
+        <CardHeader className="text-center">
           <h3 className="text-xl">Are you sure you want to logout?</h3>
-          <button
+        </CardHeader>
+        <CardFooter>
+          <Button
             type="button"
-            className="w-full mt-10 px-4 py-2 bg-red-500 text-white rounded-md"
+            className="w-full"
+            variant={"destructive"}
             onClick={handleSignOut}
           >
             Logout
-          </button>
-        </div>
+          </Button>
+        </CardFooter>
       </Modal>
     </>
   );
