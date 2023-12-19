@@ -61,11 +61,10 @@ const NewsCard = () => {
               </p>
             )}
           </div>
-          <div className="w-full flex justify-end">
-            <Button type="submit" className="mt-5">
-              Submit
-            </Button>
-          </div>
+
+          <Button type="submit" className="w-full mt-5">
+            Submit
+          </Button>
         </form>
       </CardContent>
     </Card>

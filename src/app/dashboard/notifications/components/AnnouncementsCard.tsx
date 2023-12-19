@@ -67,11 +67,9 @@ const AnnouncementsCard = () => {
             )}
           </div>
 
-          <div className="w-full flex justify-end">
-            <Button type="submit" className="mt-5">
-              Submit
-            </Button>
-          </div>
+          <Button type="submit" className="mt-5 w-full">
+            Submit
+          </Button>
         </form>
       </CardContent>
     </Card>
