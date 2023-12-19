@@ -1,32 +1,78 @@
+import { SubmitHandler, useForm } from "react-hook-form";
+
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+
+interface AnnouncementsForm {
+  heading: string;
+  content: string;
+}
 
 const AnnouncementsCard = () => {
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm<AnnouncementsForm>({ mode: "onBlur", defaultValues: {} });
+
+  const onSubmit: SubmitHandler<AnnouncementsForm> = (data) => {
+    const { heading, content } = data;
+
+    console.log(heading, content);
+  };
+
   return (
     <Card>
       <CardHeader>
         <h3 className="text-xl">Announcements</h3>
       </CardHeader>
       <CardContent>
-        <p>Announcements content</p>
-        <div className="mt-5">
-          <Label htmlFor="heading" className="mb-1">
-            Title
-          </Label>
-          <Input id="heading" className="w-full mt-2" placeholder="Heading" />
-        </div>
-        <div className="mt-5">
-          <Label htmlFor="content" className="mb-1">
-            Content
-          </Label>
-          <Textarea
-            id="content"
-            className="w-full mt-2"
-            placeholder="Content"
-          />
-        </div>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <h3>Announcements content</h3>
+          <div className="mt-5">
+            <Label htmlFor="heading" className="mb-1">
+              Heading
+            </Label>
+            <Input
+              id="heading"
+              {...register("heading", {
+                required: "This field is required",
+              })}
+              className="w-full mt-2"
+              placeholder="Heading"
+            />
+            {errors.heading && (
+              <p className="text-red-500 mt-1 text-sm">
+                {errors.heading.message}
+              </p>
+            )}
+          </div>
+          <div className="mt-5">
+            <Label htmlFor="content" className="mb-1">
+              Content
+            </Label>
+            <Textarea
+              id="content"
+              {...register("content", { required: "This field is required" })}
+              className="w-full mt-2"
+              placeholder="Content"
+            />
+            {errors.content && (
+              <p className="text-red-500 mt-1 text-sm">
+                {errors.content.message}
+              </p>
+            )}
+          </div>
+
+          <div className="w-full flex justify-end">
+            <Button type="submit" className="mt-5">
+              Submit
+            </Button>
+          </div>
+        </form>
       </CardContent>
     </Card>
   );
