@@ -1,4 +1,4 @@
-import { UserRound, Users } from "lucide-react";
+import { BellRing, UserRound, Users } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
 
@@ -18,6 +18,12 @@ const useRoutes = () => {
         href: "/dashboard/groups",
         icon: Users,
         active: pathname === "/dashboard/groups",
+      },
+      {
+        label: "Noficications",
+        href: "/dashboard/notifications",
+        icon: BellRing,
+        active: pathname === "/dashboard/notifications",
       },
     ];
   }, [pathname]);
