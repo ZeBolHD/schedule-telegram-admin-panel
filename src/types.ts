@@ -24,3 +24,8 @@ export type GroupCreateType = {
   facultyId: string;
   studyType: string;
 };
+
+export interface Announcement {
+  heading: string;
+  content: string;
+}

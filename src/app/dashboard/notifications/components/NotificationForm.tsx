@@ -1,7 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import NewsCard from "./NewsCard";
-import AnnouncementsCard from "./AnnouncementsCard";
+import AnnouncementCard from "./AnnouncementCard";
 
 const NotificationCard = () => {
   return (
@@ -14,7 +14,7 @@ const NotificationCard = () => {
         <NewsCard />
       </TabsContent>
       <TabsContent value="announcements">
-        <AnnouncementsCard />
+        <AnnouncementCard />
       </TabsContent>
     </Tabs>
   );

@@ -1,3 +1,4 @@
+import { toast } from "react-hot-toast";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -5,23 +6,23 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { Announcement } from "@/types";
+import sendAnnouncement from "@/actions/sendAnnouncement";
 
-interface AnnouncementsForm {
-  heading: string;
-  content: string;
-}
-
-const AnnouncementsCard = () => {
+const AnnouncementCard = () => {
   const {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm<AnnouncementsForm>({ mode: "onBlur", defaultValues: {} });
+  } = useForm<Announcement>({ mode: "onBlur", defaultValues: {} });
 
-  const onSubmit: SubmitHandler<AnnouncementsForm> = (data) => {
-    const { heading, content } = data;
-
-    console.log(heading, content);
+  const onSubmit: SubmitHandler<Announcement> = async (data) => {
+    try {
+      await sendAnnouncement(data);
+      toast.success("Announcement sent successfully");
+    } catch (e) {
+      toast.error("Something went wrong");
+    }
   };
 
   return (
@@ -76,4 +77,4 @@ const AnnouncementsCard = () => {
   );
 };
 
-export default AnnouncementsCard;
+export default AnnouncementCard;
