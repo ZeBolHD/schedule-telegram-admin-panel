@@ -29,3 +29,9 @@ export interface Announcement {
   heading: string;
   content: string;
 }
+
+export interface News {
+  heading: string;
+  content: string;
+  images: FileList;
+}

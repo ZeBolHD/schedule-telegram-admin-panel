@@ -5,22 +5,18 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-
-interface NewsForm {
-  heading: string;
-  content: string;
-}
+import { News } from "@/types";
+import { sendNews } from "@/actions/sendNews";
 
 const NewsCard = () => {
   const {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm<NewsForm>({ mode: "onBlur", defaultValues: {} });
+  } = useForm<News>({ mode: "onBlur", defaultValues: {} });
 
-  const onSubmit: SubmitHandler<NewsForm> = (data) => {
-    const { heading, content } = data;
-    console.log(heading, content);
+  const onSubmit: SubmitHandler<News> = async (data) => {
+    await sendNews(data);
   };
 
   return (
@@ -46,6 +42,18 @@ const NewsCard = () => {
               </p>
             )}
           </div>
+
+          <div className="mt-5">
+            <Label>Images</Label>
+            <Input
+              {...register("images")}
+              type="file"
+              className="w-full mt-2"
+              multiple
+              accept="image/*"
+            />
+          </div>
+
           <div className="mt-5">
             <Label htmlFor="content" className="mb-1">
               Content
