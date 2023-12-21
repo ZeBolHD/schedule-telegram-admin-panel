@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
 
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -7,16 +9,33 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { News } from "@/types";
 import { sendNews } from "@/actions/sendNews";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 const NewsCard = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const {
     handleSubmit,
     register,
     formState: { errors },
+    reset,
   } = useForm<News>({ mode: "onBlur", defaultValues: {} });
 
   const onSubmit: SubmitHandler<News> = async (data) => {
-    await sendNews(data);
+    try {
+      setIsLoading(true);
+      await sendNews(data);
+
+      reset();
+      setIsLoading(false);
+
+      toast.success("News sent successfully");
+    } catch (e) {
+      reset();
+      setIsLoading(false);
+
+      toast.error("Something went wrong");
+    }
   };
 
   return (
@@ -70,8 +89,8 @@ const NewsCard = () => {
             )}
           </div>
 
-          <Button type="submit" className="w-full mt-5">
-            Submit
+          <Button type="submit" disabled={isLoading} className="w-full mt-5">
+            {isLoading ? <LoadingSpinner size={20} /> : "Send"}
           </Button>
         </form>
       </CardContent>

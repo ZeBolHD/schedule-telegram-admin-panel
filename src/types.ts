@@ -35,3 +35,10 @@ export interface News {
   content: string;
   images: FileList;
 }
+
+export type Media = {
+  type: string;
+  media: string;
+  caption?: string;
+  parse_mode?: string;
+};
