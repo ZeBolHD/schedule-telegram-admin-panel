@@ -7,9 +7,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { News } from "@/types";
-import { sendNews } from "@/actions/sendNews";
 import LoadingSpinner from "@/components/LoadingSpinner";
+
+import { sendNews } from "@/actions/sendNews";
+
+import { News } from "@/types";
 
 const NewsCard = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -22,20 +24,19 @@ const NewsCard = () => {
   } = useForm<News>({ mode: "onBlur", defaultValues: {} });
 
   const onSubmit: SubmitHandler<News> = async (data) => {
-    try {
-      setIsLoading(true);
-      await sendNews(data);
+    setIsLoading(true);
 
-      reset();
-      setIsLoading(false);
+    const res = await sendNews(data);
 
+    setIsLoading(false);
+
+    if (res) {
       toast.success("News sent successfully");
-    } catch (e) {
       reset();
-      setIsLoading(false);
-
-      toast.error("Something went wrong");
+      return;
     }
+
+    toast.error("Something went wrong");
   };
 
   return (
@@ -45,8 +46,7 @@ const NewsCard = () => {
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <h3>News content</h3>
-          <div className="mt-5">
+          <div>
             <Label htmlFor="heading" className="mb-1">
               Heading
             </Label>

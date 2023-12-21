@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -6,23 +7,36 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Announcement } from "@/types";
+import LoadingSpinner from "@/components/LoadingSpinner";
+
 import sendAnnouncement from "@/actions/sendAnnouncement";
 
+import { Announcement } from "@/types";
+
 const AnnouncementCard = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const {
     handleSubmit,
     register,
     formState: { errors },
+    reset,
   } = useForm<Announcement>({ mode: "onBlur", defaultValues: {} });
 
   const onSubmit: SubmitHandler<Announcement> = async (data) => {
-    try {
-      await sendAnnouncement(data);
+    setIsLoading(true);
+
+    const res = await sendAnnouncement(data);
+
+    setIsLoading(false);
+
+    if (res) {
       toast.success("Announcement sent successfully");
-    } catch (e) {
-      toast.error("Something went wrong");
+      reset();
+      return;
     }
+
+    toast.error("Something went wrong");
   };
 
   return (
@@ -32,8 +46,7 @@ const AnnouncementCard = () => {
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <h3>Announcements content</h3>
-          <div className="mt-5">
+          <div>
             <Label htmlFor="heading" className="mb-1">
               Heading
             </Label>
@@ -68,8 +81,8 @@ const AnnouncementCard = () => {
             )}
           </div>
 
-          <Button type="submit" className="mt-5 w-full">
-            Submit
+          <Button type="submit" disabled={isLoading} className="w-full mt-5">
+            {isLoading ? <LoadingSpinner size={20} /> : "Send"}
           </Button>
         </form>
       </CardContent>

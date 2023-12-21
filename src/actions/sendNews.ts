@@ -12,9 +12,15 @@ export const sendNews = async ({ heading, content, images }: News) => {
     formData.append("image", image);
   }
 
-  await axios.post("/api/notifications/news", formData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
+  try {
+    const { data } = await axios.post("/api/notifications/news", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    return data;
+  } catch (e) {
+    return null;
+  }
 };

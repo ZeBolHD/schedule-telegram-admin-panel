@@ -4,10 +4,12 @@ import { Announcement } from "@/types";
 
 const sendAnnouncement = async ({ heading, content }: Announcement) => {
   try {
-    axios.post("/api/notifications/announcement", {
+    const { data } = await axios.post("/api/notifications/announcement", {
       heading,
       content,
     });
+
+    return data;
   } catch (e) {
     return null;
   }

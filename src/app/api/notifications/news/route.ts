@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getServerSession } from "next-auth";
 
 import { NextRequest, NextResponse } from "next/server";
 
@@ -11,7 +12,15 @@ import {
 } from "@/consts";
 import { Media } from "@/types";
 
+import { authOptions } from "../../auth/[...nextauth]/route";
+
 export async function POST(req: NextRequest) {
+  const session = await getServerSession(authOptions);
+
+  if (!session || !session.user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const reqFormData = await req.formData();
 
   const heading = reqFormData.get("heading") as string;
