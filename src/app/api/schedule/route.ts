@@ -14,17 +14,19 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const query = req.nextUrl.searchParams;
-
   const formData = await req.formData();
-  const groupId = query.get("groupId");
-  const notification = Boolean(Number(query.get("notification")));
+  const document = formData.get("document");
+  const groupId = formData.get("groupId");
+  const notification = Boolean(Number(formData.get("notification")));
 
   if (!groupId) {
     return NextResponse.json({ error: "Invalid data" }, { status: 400 });
   }
 
   try {
+    const formData = new FormData();
+    formData.append("document", document as Blob);
+
     const { data } = await axios.post(
       TELEGRAM_SENDDOCUMENT_URL + "?chat_id=" + TELEGRAM_UPLOAD_CHATID,
       formData

@@ -1,18 +1,15 @@
 import { useContext, useState } from "react";
-import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import axios from "axios";
 
 import { FullGroupType } from "@/types";
-import deleteGroup from "@/actions/deleteGroup";
 import { CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import LoadingSpinner from "@/components/LoadingSpinner";
-import sendFile from "@/actions/sendFile";
+import editGroup from "@/actions/editGroup";
 import { TableGroupsDataContext } from "@/context/TableGroupsDataContext";
 
 interface GroupEditModalProps {
@@ -34,17 +31,18 @@ const GroupEditModal = ({ group, onClose }: GroupEditModalProps) => {
   const { refetch } = useContext(TableGroupsDataContext);
 
   const onSubmit: SubmitHandler<GroupEditFormInput> = async (data) => {
-    setIsLoading(true);
-
+    const grade = data.grade;
     const groupId = group.id;
     const file = data.file?.[0];
     const notification = data.notification;
 
-    if (!file) {
+    if (!file && Number(grade) === group.grade) {
       return;
     }
 
-    const newGroup = await sendFile(groupId, notification, file);
+    setIsLoading(true);
+
+    const newGroup = await editGroup(groupId, notification, file, grade);
 
     if (!newGroup) {
       setIsLoading(false);
@@ -54,7 +52,7 @@ const GroupEditModal = ({ group, onClose }: GroupEditModalProps) => {
     }
 
     setIsLoading(false);
-    toast.success("Group schedule updated successfully");
+    toast.success("Group updated successfully");
     refetch();
     onClose();
   };
