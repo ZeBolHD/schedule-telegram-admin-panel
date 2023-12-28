@@ -6,11 +6,12 @@ import { useState } from "react";
 import Modal from "@/components/Modal";
 import { Button } from "@/components/ui/button";
 import { CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import useModal from "@/hooks/useModal";
 
 interface ProfileProps {}
 
 const Profile = ({}: ProfileProps) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { isModalOpen, toggleModal } = useModal();
 
   const session = useSession();
   const user = session.data?.user;
@@ -18,10 +19,6 @@ const Profile = ({}: ProfileProps) => {
 
   const handleSignOut = () => {
     signOut();
-  };
-
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
   };
 
   return (

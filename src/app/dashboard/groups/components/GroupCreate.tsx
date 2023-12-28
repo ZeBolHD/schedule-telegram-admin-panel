@@ -22,11 +22,13 @@ import { Button } from "@/components/ui/button";
 import { GroupCreateType } from "@/types";
 import createGroup from "@/actions/createGroup";
 import { TableGroupsDataContext } from "@/context/TableGroupsDataContext";
+import useModal from "@/hooks/useModal";
 
 const GroupCreate = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [faculties, setFaculties] = useState<Faculty[] | null>([]);
   const { refetch } = useContext(TableGroupsDataContext);
+
+  const { isModalOpen, toggleModal } = useModal();
 
   const { register, handleSubmit, control, reset } = useForm<GroupCreateType>();
 
@@ -35,8 +37,8 @@ const GroupCreate = () => {
     setFaculties(faculties);
   };
 
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
+  const onCloseModal = () => {
+    toggleModal();
     reset();
   };
 
@@ -70,7 +72,7 @@ const GroupCreate = () => {
       >
         Create Group
       </Button>
-      <Modal isOpen={isModalOpen} onClose={toggleModal}>
+      <Modal isOpen={isModalOpen} onClose={onCloseModal}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <CardHeader>
             <h3 className="text-lg">Add Group</h3>

@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import {
-  ColumnDef,
   ColumnFiltersState,
   SortingState,
   VisibilityState,
@@ -13,10 +12,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ArrowUpDown } from "lucide-react";
-import { Faculty } from "@prisma/client";
 
-import Modal from "@/components/Modal";
 import { FullGroupType } from "@/types";
 
 import {
@@ -151,66 +147,5 @@ const GroupTable = ({ groups }: TableProps) => {
     </>
   );
 };
-
-// const GroupTable = ({ groups, fetchGroups }: TableProps) => {
-//   const [isModalOpen, setIsModalOpen] = useState(false);
-//   const [selectedGroup, setSelectedGroup] = useState<FullGroupType | null>(
-//     null
-//   );
-
-//   const openGroupEditModal = (group: FullGroupType) => {
-//     setIsModalOpen(true);
-//     setSelectedGroup(group);
-//   };
-
-//   const closeGroupEditModal = () => {
-//     setIsModalOpen(false);
-//     setSelectedGroup(null);
-//   };
-
-//   const tableLabels = [
-//     "Id",
-//     "Code",
-//     "Faculty",
-//     "Study Type",
-//     "Grade",
-//     "Users",
-//     "File",
-//   ];
-
-//   return (
-//     <>
-//       <ScrollArea className="h-5/6 mt-10 rounded-md border border-gray-500">
-//         <Table className="border-collapse text-md">
-//           <TableHeader>
-//             <TableRow>
-//               {tableLabels.map((label) => (
-//                 <TableHead key={label} className="text-white">
-//                   {label}
-//                 </TableHead>
-//               ))}
-//             </TableRow>
-//           </TableHeader>
-//           <TableBody>
-//             {groups.map((group) => (
-//               <GroupTableItem
-//                 key={group.id}
-//                 group={group}
-//                 openGroupEditModal={openGroupEditModal}
-//               />
-//             ))}
-//           </TableBody>
-//         </Table>
-//       </ScrollArea>
-//       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-//         <GroupEditModal
-//           group={selectedGroup!}
-//           onClose={closeGroupEditModal}
-//           fetchGroups={fetchGroups}
-//         />
-//       </Modal>
-//     </>
-//   );
-// };
 
 export default GroupTable;

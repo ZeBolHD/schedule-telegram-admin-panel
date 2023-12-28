@@ -7,17 +7,7 @@ import { Faculty } from "@prisma/client";
 import { FullGroupType } from "@/types";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import Modal from "@/components/Modal";
-import useModal from "@/hooks/useModal";
 
-import GroupEditModal from "./GroupEditModal";
-import GroupDeleteModal from "./GroupDeleteModal";
 import GroupCellActions from "./GroupCellActions";
 
 const columns: ColumnDef<FullGroupType>[] = [

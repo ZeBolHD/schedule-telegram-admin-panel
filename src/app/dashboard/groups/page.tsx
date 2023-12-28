@@ -1,9 +1,6 @@
 "use client";
 
-import { useContext, useEffect, useState } from "react";
-
-import { FullGroupType } from "@/types";
-import getAllGroups from "@/actions/getAllGroups";
+import { useContext } from "react";
 
 import LoadingSpinner from "@/components/LoadingSpinner";
 import ErrorFetchBlock from "@/components/ErrorBlock";
@@ -33,9 +30,8 @@ const GroupsPage = () => {
 
   return (
     <div className="w-full h-full p-10">
-      <div className="flex items-center justify-between">
-        <Statistic statisticList={statistic} />
-
+      <div className="flex items-center justify-end">
+        {/* <Statistic statisticList={statistic} /> */}
         <GroupCreate />
       </div>
       <GroupTable groups={groups} />
