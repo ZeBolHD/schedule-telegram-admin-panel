@@ -15,15 +15,16 @@ const initialState: TableDataContextProps = {
   refetch: () => {},
 };
 
-const TableDataContext = createContext<TableDataContextProps>(initialState);
+const TableGroupsDataContext =
+  createContext<TableDataContextProps>(initialState);
 
-const TableDataContextProvider = ({
+const TableGroupsDataContextProvider = ({
   children,
 }: {
   children: React.ReactNode;
 }) => {
   const [groups, setGroups] = useState<FullGroupType[] | null>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const refetch = async () => {
     setIsLoading(true);
@@ -37,10 +38,10 @@ const TableDataContextProvider = ({
   }, []);
 
   return (
-    <TableDataContext.Provider value={{ groups, isLoading, refetch }}>
+    <TableGroupsDataContext.Provider value={{ groups, isLoading, refetch }}>
       {children}
-    </TableDataContext.Provider>
+    </TableGroupsDataContext.Provider>
   );
 };
 
-export { TableDataContext, TableDataContextProvider };
+export { TableGroupsDataContext, TableGroupsDataContextProvider };

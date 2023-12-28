@@ -1,6 +1,6 @@
 "use client";
 
-import { TableDataContextProvider } from "@/context/TableGroupsDataContext";
+import { TableGroupsDataContextProvider } from "@/context/TableGroupsDataContext";
 
 import Header from "./components/Header";
 import SideBar from "./components/SideBar";
@@ -15,9 +15,9 @@ const layout = ({ children }: DashBoardLayoutProps) => {
       <Header />
       <div className="w-full max-h-full h-full flex">
         <SideBar />
-        <TableDataContextProvider>
+        <TableGroupsDataContextProvider>
           <main className="w-full max-h-full">{children}</main>
-        </TableDataContextProvider>
+        </TableGroupsDataContextProvider>
       </div>
     </div>
   );

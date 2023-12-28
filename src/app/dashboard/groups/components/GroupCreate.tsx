@@ -21,12 +21,12 @@ import {
 import { Button } from "@/components/ui/button";
 import { GroupCreateType } from "@/types";
 import createGroup from "@/actions/createGroup";
-import { TableDataContext } from "@/context/TableGroupsDataContext";
+import { TableGroupsDataContext } from "@/context/TableGroupsDataContext";
 
 const GroupCreate = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [faculties, setFaculties] = useState<Faculty[] | null>([]);
-  const { refetch } = useContext(TableDataContext);
+  const { refetch } = useContext(TableGroupsDataContext);
 
   const { register, handleSubmit, control, reset } = useForm<GroupCreateType>();
 

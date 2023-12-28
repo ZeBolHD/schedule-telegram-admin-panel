@@ -8,16 +8,13 @@ import getAllGroups from "@/actions/getAllGroups";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import ErrorFetchBlock from "@/components/ErrorBlock";
 import Statistic from "@/components/Statistic";
-import {
-  TableDataContext,
-  TableDataContextProvider,
-} from "@/context/TableGroupsDataContext";
+import { TableGroupsDataContext } from "@/context/TableGroupsDataContext";
 
 import GroupTable from "./components/GroupTable";
 import GroupCreate from "./components/GroupCreate";
 
 const GroupsPage = () => {
-  const { groups, isLoading, refetch } = useContext(TableDataContext);
+  const { groups, isLoading, refetch } = useContext(TableGroupsDataContext);
 
   const statistic = [
     {

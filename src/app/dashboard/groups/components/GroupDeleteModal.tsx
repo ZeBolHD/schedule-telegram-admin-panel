@@ -8,7 +8,7 @@ import { CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import deleteGroup from "@/actions/deleteGroup";
 import LoadingSpinner from "@/components/LoadingSpinner";
-import { TableDataContext } from "@/context/TableGroupsDataContext";
+import { TableGroupsDataContext } from "@/context/TableGroupsDataContext";
 
 interface GroupDeleteModal {
   id: number;
@@ -18,7 +18,7 @@ interface GroupDeleteModal {
 
 const GroupDeleteModal = ({ id, code, onClose }: GroupDeleteModal) => {
   const [isLoading, setIsLoading] = useState(false);
-  const { refetch } = useContext(TableDataContext);
+  const { refetch } = useContext(TableGroupsDataContext);
 
   const onGroupDelete = async () => {
     try {

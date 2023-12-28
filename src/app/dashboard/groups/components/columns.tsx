@@ -18,6 +18,7 @@ import useModal from "@/hooks/useModal";
 
 import GroupEditModal from "./GroupEditModal";
 import GroupDeleteModal from "./GroupDeleteModal";
+import GroupCellActions from "./GroupCellActions";
 
 const columns: ColumnDef<FullGroupType>[] = [
   {
@@ -165,52 +166,7 @@ const columns: ColumnDef<FullGroupType>[] = [
   {
     id: "actions",
     enableSorting: false,
-    cell: function Cell({ row, table }) {
-      const { isModalOpen, toggleModal } = useModal();
-      const [modalAction, setModalAction] = useState<"edit" | "delete">("edit");
-
-      const group = row.original;
-
-      const openEditModal = () => {
-        setModalAction("edit");
-        toggleModal();
-      };
-
-      const openDeleteModal = () => {
-        setModalAction("delete");
-        toggleModal();
-      };
-
-      return (
-        <>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0">
-                <span className="sr-only">Open menu</span>
-                <MoreHorizontal className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem onClick={openEditModal}>Edit</DropdownMenuItem>
-              <DropdownMenuItem onClick={openDeleteModal}>
-                Delete
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-          <Modal isOpen={isModalOpen} onClose={toggleModal}>
-            {modalAction === "edit" ? (
-              <GroupEditModal group={group} onClose={toggleModal} />
-            ) : (
-              <GroupDeleteModal
-                id={group.id}
-                code={group.code}
-                onClose={toggleModal}
-              />
-            )}
-          </Modal>
-        </>
-      );
-    },
+    cell: GroupCellActions,
   },
 ];
 

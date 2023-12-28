@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import sendFile from "@/actions/sendFile";
-import { TableDataContext } from "@/context/TableGroupsDataContext";
+import { TableGroupsDataContext } from "@/context/TableGroupsDataContext";
 
 interface GroupEditModalProps {
   group: FullGroupType;
@@ -31,7 +31,7 @@ const GroupEditModal = ({ group, onClose }: GroupEditModalProps) => {
   const { register, handleSubmit, control, reset } =
     useForm<GroupEditFormInput>();
 
-  const { refetch } = useContext(TableDataContext);
+  const { refetch } = useContext(TableGroupsDataContext);
 
   const onSubmit: SubmitHandler<GroupEditFormInput> = async (data) => {
     setIsLoading(true);
@@ -128,6 +128,9 @@ const GroupEditModal = ({ group, onClose }: GroupEditModalProps) => {
         </div>
       </CardContent>
       <CardFooter className="flex justify-end">
+        <Button type="button" variant="ghost" onClick={onClose}>
+          Cancel
+        </Button>
         <Button
           type="submit"
           variant={"default"}
