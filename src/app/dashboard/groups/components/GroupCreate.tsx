@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Faculty } from "@prisma/client";
 import axios, { AxiosError } from "axios";
 import { toast } from "react-hot-toast";
@@ -21,14 +21,12 @@ import {
 import { Button } from "@/components/ui/button";
 import { GroupCreateType } from "@/types";
 import createGroup from "@/actions/createGroup";
+import { TableDataContext } from "@/context/TableGroupsDataContext";
 
-interface GroupCreateProps {
-  fetchGroups: () => void;
-}
-
-const GroupCreate = ({ fetchGroups }: GroupCreateProps) => {
+const GroupCreate = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [faculties, setFaculties] = useState<Faculty[] | null>([]);
+  const { refetch } = useContext(TableDataContext);
 
   const { register, handleSubmit, control, reset } = useForm<GroupCreateType>();
 
@@ -43,22 +41,19 @@ const GroupCreate = ({ fetchGroups }: GroupCreateProps) => {
   };
 
   const onSubmit: SubmitHandler<GroupCreateType> = async (data) => {
-    try {
-      const group = await createGroup(data);
-      if (group) {
-        toggleModal();
-        reset();
-        fetchGroups();
-        toast.success("Group added successfully");
-      }
-    } catch (e) {
-      const error = e as AxiosError;
-      const status = error.response?.status;
-      if (status === 409) {
-        toast.error("Group already exists");
-      } else {
-        toast.error("Something went wrong");
-      }
+    const status = await createGroup(data);
+    if (status === 200) {
+      toggleModal();
+      reset();
+      refetch();
+      toast.success("Group added successfully");
+      return;
+    }
+
+    if (status === 409) {
+      toast.error("Group already exists");
+    } else {
+      toast.error("Something went wrong");
     }
   };
 
@@ -73,7 +68,7 @@ const GroupCreate = ({ fetchGroups }: GroupCreateProps) => {
         className="px-5 py-5 bg-blue-500 text-white hover:bg-blue-600"
         onClick={toggleModal}
       >
-        Add Group
+        Create Group
       </Button>
       <Modal isOpen={isModalOpen} onClose={toggleModal}>
         <form onSubmit={handleSubmit(onSubmit)}>

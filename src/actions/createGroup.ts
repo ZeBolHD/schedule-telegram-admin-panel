@@ -4,13 +4,11 @@ import { GroupCreateType, FullGroupType } from "@/types";
 
 const createGroup = async (data: GroupCreateType) => {
   try {
-    const { data: group } = await axios.post<FullGroupType>(
-      "/api/groups/add",
-      data
-    );
-    return group;
+    const { status } = await axios.post<FullGroupType>("/api/groups/add", data);
+    return status;
   } catch (e) {
-    return null;
+    const status = (axios.isAxiosError(e) && e.response?.status) || 0;
+    return status;
   }
 };
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { FullGroupType } from "@/types";
 import getAllGroups from "@/actions/getAllGroups";
@@ -8,13 +8,16 @@ import getAllGroups from "@/actions/getAllGroups";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import ErrorFetchBlock from "@/components/ErrorBlock";
 import Statistic from "@/components/Statistic";
+import {
+  TableDataContext,
+  TableDataContextProvider,
+} from "@/context/TableGroupsDataContext";
 
 import GroupTable from "./components/GroupTable";
 import GroupCreate from "./components/GroupCreate";
 
 const GroupsPage = () => {
-  const [groups, setGroups] = useState<FullGroupType[] | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const { groups, isLoading, refetch } = useContext(TableDataContext);
 
   const statistic = [
     {
@@ -23,24 +26,12 @@ const GroupsPage = () => {
     },
   ];
 
-  const fetchGroups = async () => {
-    setIsLoading(true);
-    setGroups(null);
-    const groups = await getAllGroups();
-    setGroups(groups);
-    setIsLoading(false);
-  };
-
-  useEffect(() => {
-    fetchGroups();
-  }, []);
-
   if (isLoading) {
     return <LoadingSpinner size={100} />;
   }
 
   if (groups === null) {
-    return <ErrorFetchBlock onRefetch={fetchGroups} />;
+    return <ErrorFetchBlock onRefetch={refetch} />;
   }
 
   return (
@@ -48,9 +39,9 @@ const GroupsPage = () => {
       <div className="flex items-center justify-between">
         <Statistic statisticList={statistic} />
 
-        <GroupCreate fetchGroups={fetchGroups} />
+        <GroupCreate />
       </div>
-      <GroupTable groups={groups} fetchGroups={fetchGroups} />
+      <GroupTable groups={groups} />
     </div>
   );
 };

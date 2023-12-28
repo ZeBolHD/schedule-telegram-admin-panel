@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import axios from "axios";
@@ -11,29 +12,31 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import LoadingSpinner from "@/components/LoadingSpinner";
+import sendFile from "@/actions/sendFile";
+import { TableDataContext } from "@/context/TableGroupsDataContext";
 
 interface GroupEditModalProps {
-  fetchGroups: () => void;
   group: FullGroupType;
   onClose: () => void;
 }
 
 interface GroupEditFormInput {
   file: FileList | null;
+  grade: number;
   notification: number;
 }
 
-const GroupEditModal = ({
-  group,
-  onClose,
-  fetchGroups,
-}: GroupEditModalProps) => {
+const GroupEditModal = ({ group, onClose }: GroupEditModalProps) => {
   const [isLoading, setIsLoading] = useState(false);
-  const { register, handleSubmit, control } = useForm<GroupEditFormInput>();
+  const { register, handleSubmit, control, reset } =
+    useForm<GroupEditFormInput>();
+
+  const { refetch } = useContext(TableDataContext);
 
   const onSubmit: SubmitHandler<GroupEditFormInput> = async (data) => {
     setIsLoading(true);
 
+    const groupId = group.id;
     const file = data.file?.[0];
     const notification = data.notification;
 
@@ -41,31 +44,19 @@ const GroupEditModal = ({
       return;
     }
 
-    const formData = new FormData();
-    formData.append("document", file, file.name);
+    const newGroup = await sendFile(groupId, notification, file);
 
-    const url = `/api/schedule?groupId=${group.id}&notification=${notification}`;
-
-    await axios.post(url, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    if (!newGroup) {
+      setIsLoading(false);
+      reset();
+      toast.error("Something went wrong");
+      return;
+    }
 
     setIsLoading(false);
     toast.success("Group schedule updated successfully");
+    refetch();
     onClose();
-  };
-
-  const onGroupDelete = async () => {
-    try {
-      await deleteGroup(group.id);
-      fetchGroups();
-      onClose();
-      toast.success(`Group ${group.code} deleted successfully`);
-    } catch (e) {
-      toast.error("Something went wrong");
-    }
   };
 
   return (
@@ -76,6 +67,22 @@ const GroupEditModal = ({
       <CardContent>
         <div className="w-full">
           <h3 className="text-lg">Code: {group.code}</h3>
+        </div>
+
+        <div className="mt-5 w-full">
+          <Label htmlFor="grade" className="text-lg font-normal">
+            Grade
+          </Label>
+          <Input
+            type="number"
+            id="grade"
+            placeholder="Grade"
+            defaultValue={group.grade}
+            max={6}
+            min={1}
+            {...register("grade")}
+            className="mt-2"
+          />
         </div>
         <div className="mt-5 w-full">
           <Label htmlFor="file" className="text-lg font-normal">
@@ -121,15 +128,6 @@ const GroupEditModal = ({
         </div>
       </CardContent>
       <CardFooter className="flex justify-end">
-        <Button
-          type="button"
-          variant="ghost"
-          disabled={isLoading}
-          className=" hover:bg-red-600 hover:text-white"
-          onClick={onGroupDelete}
-        >
-          Delete
-        </Button>
         <Button
           type="submit"
           variant={"default"}

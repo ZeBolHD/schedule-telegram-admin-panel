@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
 
   const formData = await req.formData();
   const groupId = query.get("groupId");
-  let notification = Boolean(Number(query.get("notification")));
+  const notification = Boolean(Number(query.get("notification")));
 
   if (!groupId) {
     return NextResponse.json({ error: "Invalid data" }, { status: 400 });
