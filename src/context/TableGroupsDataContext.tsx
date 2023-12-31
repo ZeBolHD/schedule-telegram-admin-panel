@@ -3,20 +3,20 @@ import { createContext, useEffect, useState } from "react";
 import { FullGroupType } from "@/types";
 import getAllGroups from "@/actions/getAllGroups";
 
-interface TableDataContextProps {
+interface TableGroupsDataContextProps {
   groups: FullGroupType[] | null;
   isLoading: boolean;
   refetch: () => void;
 }
 
-const initialState: TableDataContextProps = {
+const initialState: TableGroupsDataContextProps = {
   groups: null,
   isLoading: true,
   refetch: () => {},
 };
 
 const TableGroupsDataContext =
-  createContext<TableDataContextProps>(initialState);
+  createContext<TableGroupsDataContextProps>(initialState);
 
 const TableGroupsDataContextProvider = ({
   children,
