@@ -1,18 +1,16 @@
 import axios, { AxiosError } from "axios";
 import { NextRequest, NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
 
 import { TELEGRAM_DOWNLOAD_URL, TELEGRAM_GETFILE_URL } from "@/consts";
 
-import { authOptions } from "../auth/[...nextauth]/route";
+import checkIsSessionAuthorized from "@/libs/checkSessionAuthorized";
 
 export async function GET(req: NextRequest) {
-  const session = await getServerSession(authOptions);
+  const isSessionAuthorized = await checkIsSessionAuthorized();
 
-  if (!session || !session.user) {
+  if (!isSessionAuthorized) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
-
   const fileId = req.nextUrl.searchParams.get("file_id");
 
   if (!fileId) {

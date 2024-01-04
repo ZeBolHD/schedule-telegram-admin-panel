@@ -1,15 +1,13 @@
-import { getServerSession } from "next-auth";
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 import prisma from "@/libs/prismadb";
-
-import { authOptions } from "../../auth/[...nextauth]/route";
+import checkIsSessionAuthorized from "@/libs/checkSessionAuthorized";
 
 export async function DELETE(req: NextRequest) {
-  const session = await getServerSession(authOptions);
+  const isSessionAuthorized = await checkIsSessionAuthorized();
 
-  if (!session || !session.user) {
-    return new Response("Unauthorized", { status: 401 });
+  if (!isSessionAuthorized) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   const groupId = req.nextUrl.searchParams.get("groupId");

@@ -2,7 +2,6 @@
 
 import { useContext, useEffect, useState } from "react";
 import { Faculty } from "@prisma/client";
-import axios, { AxiosError } from "axios";
 import { toast } from "react-hot-toast";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 

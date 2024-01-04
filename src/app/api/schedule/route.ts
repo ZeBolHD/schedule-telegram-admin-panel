@@ -5,12 +5,12 @@ import { getServerSession } from "next-auth";
 import { TELEGRAM_SENDDOCUMENT_URL, TELEGRAM_UPLOAD_CHATID } from "@/consts";
 import prisma from "@/libs/prismadb";
 
-import { authOptions } from "../auth/[...nextauth]/route";
+import checkIsSessionAuthorized from "@/libs/checkSessionAuthorized";
 
 export async function POST(req: NextRequest) {
-  const session = await getServerSession(authOptions);
+  const isSessionAuthorized = await checkIsSessionAuthorized();
 
-  if (!session || !session.user) {
+  if (!isSessionAuthorized) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -25,8 +25,6 @@ export async function POST(req: NextRequest) {
   if (!groupIds) {
     return NextResponse.json({ error: "Invalid data" }, { status: 400 });
   }
-
-  // return NextResponse.json({ status: "error" }, { status: 500 });
 
   try {
     const formData = new FormData();
@@ -100,7 +98,6 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ group });
   } catch (e) {
-    console.log(e);
     return NextResponse.json({ error: "Invalid data" }, { status: 400 });
   }
 }

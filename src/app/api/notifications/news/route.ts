@@ -1,5 +1,4 @@
 import axios from "axios";
-import { getServerSession } from "next-auth";
 
 import { NextRequest, NextResponse } from "next/server";
 
@@ -12,12 +11,12 @@ import {
 } from "@/consts";
 import { Media } from "@/types";
 
-import { authOptions } from "../../auth/[...nextauth]/route";
+import checkIsSessionAuthorized from "@/libs/checkSessionAuthorized";
 
 export async function POST(req: NextRequest) {
-  const session = await getServerSession(authOptions);
+  const isSessionAuthorized = await checkIsSessionAuthorized();
 
-  if (!session || !session.user) {
+  if (!isSessionAuthorized) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

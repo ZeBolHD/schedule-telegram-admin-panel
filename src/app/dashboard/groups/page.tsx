@@ -44,8 +44,6 @@ const GroupsPage = () => {
 
   const isAnyGroupSelected = selectedGroups.length > 0;
 
-  console.log(selectedGroups);
-
   return (
     <div className="w-full h-full p-10">
       <div className="flex items-center justify-end">

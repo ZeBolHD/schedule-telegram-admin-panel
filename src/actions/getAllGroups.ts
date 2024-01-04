@@ -4,7 +4,8 @@ import { FullGroupType } from "@/types";
 
 const getAllGroups = async () => {
   try {
-    const { data } = await axios.get<FullGroupType[]>("/api/groups");
+    const url = "/api/groups";
+    const { data } = await axios.get<FullGroupType[]>(url);
     return data;
   } catch (e) {
     return null;
