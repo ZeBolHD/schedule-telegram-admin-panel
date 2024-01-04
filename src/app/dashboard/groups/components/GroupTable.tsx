@@ -3,7 +3,9 @@
 import { useState } from "react";
 import {
   ColumnFiltersState,
+  RowSelectionState,
   SortingState,
+  Updater,
   VisibilityState,
   flexRender,
   getCoreRowModel,
@@ -30,13 +32,18 @@ import columns from "./columns";
 
 interface TableProps {
   groups: FullGroupType[];
+  onRowSelectionChange: (updater: Updater<RowSelectionState>) => void;
+  rowSelection: RowSelectionState;
 }
 
-const GroupTable = ({ groups }: TableProps) => {
+const GroupTable = ({
+  groups,
+  onRowSelectionChange,
+  rowSelection,
+}: TableProps) => {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
-  const [rowSelection, setRowSelection] = useState({});
   const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 10 });
 
   const table = useReactTable({
@@ -49,7 +56,7 @@ const GroupTable = ({ groups }: TableProps) => {
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
-    onRowSelectionChange: setRowSelection,
+    onRowSelectionChange: onRowSelectionChange,
     onPaginationChange: setPagination,
     state: {
       sorting,

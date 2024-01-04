@@ -16,27 +16,32 @@ export async function POST(req: NextRequest) {
 
   const formData = await req.formData();
   const document = formData.get("document");
-  const groupId = formData.get("groupId");
-  const notification = Boolean(Number(formData.get("notification")));
+  const groupIdsString = formData.get("groupIds") as string;
+  const notificationString = formData.get("notification");
 
-  if (!groupId) {
+  const groupIds = JSON.parse(groupIdsString) as number[];
+  const notification = Boolean(Number(notificationString));
+
+  if (!groupIds) {
     return NextResponse.json({ error: "Invalid data" }, { status: 400 });
   }
+
+  // return NextResponse.json({ status: "error" }, { status: 500 });
 
   try {
     const formData = new FormData();
     formData.append("document", document as Blob);
+    formData.append("chat_id", TELEGRAM_UPLOAD_CHATID);
 
-    const { data } = await axios.post(
-      TELEGRAM_SENDDOCUMENT_URL + "?chat_id=" + TELEGRAM_UPLOAD_CHATID,
-      formData
-    );
+    const { data } = await axios.post(TELEGRAM_SENDDOCUMENT_URL, formData);
 
     const file_id = data.result.document.file_id;
 
-    const group = await prisma.group.update({
+    const group = await prisma.group.updateMany({
       where: {
-        id: Number(groupId),
+        id: {
+          in: groupIds,
+        },
       },
       data: {
         fileId: file_id,
@@ -46,7 +51,9 @@ export async function POST(req: NextRequest) {
     if (notification) {
       const users = await prisma.userWithGroup.findMany({
         where: {
-          groupId: Number(groupId),
+          groupId: {
+            in: groupIds,
+          },
         },
 
         select: {
@@ -54,13 +61,13 @@ export async function POST(req: NextRequest) {
         },
       });
 
-      const groupChatIds = users.map((user) => user.userId);
+      const groupsChatIds = users.map((user) => user.userId);
 
       const usersWithGroupSubscription =
         await prisma.userWithSubscription.findMany({
           where: {
             userId: {
-              in: groupChatIds,
+              in: groupsChatIds,
             },
             subscriptionId: 1,
           },
@@ -73,7 +80,7 @@ export async function POST(req: NextRequest) {
         (user) => user.userId
       );
 
-      const chatIds = groupChatIds.filter((chatId) =>
+      const chatIds = groupsChatIds.filter((chatId) =>
         usersWithGroupSubscriptionIds.includes(chatId)
       );
 
@@ -93,6 +100,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ group });
   } catch (e) {
+    console.log(e);
     return NextResponse.json({ error: "Invalid data" }, { status: 400 });
   }
 }

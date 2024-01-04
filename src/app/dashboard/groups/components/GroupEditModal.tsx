@@ -122,17 +122,22 @@ const GroupEditModal = ({ group, onClose }: GroupEditModalProps) => {
                 </Label>
               </>
             )}
-          ></Controller>
+          />
         </div>
       </CardContent>
       <CardFooter className="flex justify-end">
-        <Button type="button" variant="ghost" onClick={onClose}>
+        <Button
+          type="button"
+          variant="ghost"
+          onClick={onClose}
+          className="mr-5"
+        >
           Cancel
         </Button>
         <Button
           type="submit"
           variant={"default"}
-          className="ml-5 bg-blue-500 hover:bg-blue-600"
+          className="bg-blue-500 hover:bg-blue-600"
           disabled={isLoading}
         >
           {isLoading ? <LoadingSpinner size={20} /> : "Edit"}
