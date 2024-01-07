@@ -12,7 +12,7 @@ const authOptions: AuthOptions = {
       name: "credentials",
       type: "credentials",
       credentials: {
-        username: { login: "username", type: "text" },
+        username: { label: "username", type: "text" },
         password: { label: "password", type: "password" },
       },
       async authorize(credentials, req) {
@@ -43,9 +43,16 @@ const authOptions: AuthOptions = {
       },
     }),
   ],
+
   debug: process.env.NODE_ENV === "development",
   session: {
     strategy: "jwt",
+    maxAge: 24 * 60 * 60,
+    updateAge: 24 * 60 * 60,
+  },
+  pages: {
+    signIn: "/",
+    signOut: "/",
   },
   secret: process.env.NEXTAUTH_SECRET,
 };
