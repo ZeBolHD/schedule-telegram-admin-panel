@@ -29,7 +29,7 @@ interface UsersTableProps {
 }
 
 const UserTable = ({ users }: UsersTableProps) => {
-  const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 15 });
+  const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 20 });
 
   const table = useReactTable({
     data: users,
@@ -48,7 +48,7 @@ const UserTable = ({ users }: UsersTableProps) => {
 
   return (
     <>
-      <div className="rounded-md border mt-10">
+      <div className="rounded-md border">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (

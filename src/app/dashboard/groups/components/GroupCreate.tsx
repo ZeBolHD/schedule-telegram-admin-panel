@@ -1,12 +1,12 @@
 "use client";
 
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { Faculty } from "@prisma/client";
 import { toast } from "react-hot-toast";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 
 import Modal from "@/components/Modal";
-import getAllFaculties from "@/actions/getAllFaculties";
+
 import { CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -23,18 +23,16 @@ import createGroup from "@/actions/createGroup";
 import { TableGroupsDataContext } from "@/context/TableGroupsDataContext";
 import useModal from "@/hooks/useModal";
 
-const GroupCreate = () => {
-  const [faculties, setFaculties] = useState<Faculty[] | null>([]);
+interface GroupCreateProps {
+  faculties: Faculty[];
+}
+
+const GroupCreate = ({ faculties }: GroupCreateProps) => {
   const { refetch } = useContext(TableGroupsDataContext);
 
   const { isModalOpen, toggleModal } = useModal();
 
   const { register, handleSubmit, control, reset } = useForm<GroupCreateType>();
-
-  const fetchFaculties = async () => {
-    const faculties = await getAllFaculties();
-    setFaculties(faculties);
-  };
 
   const onCloseModal = () => {
     toggleModal();
@@ -57,10 +55,6 @@ const GroupCreate = () => {
       toast.error("Something went wrong");
     }
   };
-
-  useEffect(() => {
-    fetchFaculties();
-  }, []);
 
   return (
     <>

@@ -56,41 +56,47 @@ const columns: ColumnDef<FullGroupType>[] = [
   },
   {
     accessorKey: "code",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          className="w-full"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Code
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
+    header: () => <div className="w-full text-center">Code</div>,
     cell: ({ row }) => (
       <div className="text-center">{row.getValue("code")}</div>
     ),
   },
   {
+    id: "faculty",
     accessorKey: "faculty",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          className="w-full"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Faculty
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
+    header: () => <div className="w-full text-center">Faculty</div>,
+    cell: ({ row }) => {
+      const facultyName = (row.getValue("faculty") as Faculty).name;
+
+      return <div className="text-right">{facultyName}</div>;
     },
-    cell: ({ row }) => (
-      <div className="text-right">
-        {(row.getValue("faculty") as Faculty).name}
-      </div>
-    ),
+    enableColumnFilter: true,
+    filterFn: (row, columnId, filterStatuses) => {
+      if (filterStatuses.length == 0 || filterStatuses == "None") return true;
+      const value = filterStatuses;
+      const facultyId = String((row.getValue(columnId) as Faculty).id);
+      return facultyId == value;
+    },
+  },
+  {
+    id: "studyType",
+    accessorKey: "studyType",
+    header: () => <div className="w-full text-center">Study Type</div>,
+    cell: ({ row }) => {
+      const studyType =
+        row.getValue("studyType") === 0 ? "Full-Time" : "Part-Time";
+
+      return <div className="text-center">{studyType}</div>;
+    },
+    enableColumnFilter: true,
+    filterFn: (row, columnId, filterStatuses) => {
+      if (filterStatuses.length == 0 || filterStatuses == "None") {
+        return true;
+      }
+      const value = filterStatuses;
+      const studyType = String(row.getValue("studyType"));
+      return studyType == value;
+    },
   },
   {
     accessorKey: "grade",

@@ -34,16 +34,18 @@ interface TableProps {
   groups: FullGroupType[];
   onRowSelectionChange: (updater: Updater<RowSelectionState>) => void;
   rowSelection: RowSelectionState;
+  columnFilters: ColumnFiltersState;
+  setColumnFilters: (updater: Updater<ColumnFiltersState>) => void;
 }
 
 const GroupTable = ({
   groups,
   onRowSelectionChange,
   rowSelection,
+  columnFilters,
+  setColumnFilters,
 }: TableProps) => {
   const [sorting, setSorting] = useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 10 });
 
   const table = useReactTable({
@@ -55,13 +57,11 @@ const GroupTable = ({
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
-    onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: onRowSelectionChange,
     onPaginationChange: setPagination,
     state: {
       sorting,
       columnFilters,
-      columnVisibility,
       rowSelection,
       pagination: pagination,
     },
