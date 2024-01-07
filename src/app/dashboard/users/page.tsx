@@ -8,13 +8,13 @@ import ErrorFetchBlock from "@/components/ErrorBlock";
 import { FullTelegramUserType } from "@/types";
 
 import UserTable from "./components/UserTable";
-import UserStatistic from "./components/UserStatistic";
 
 const UsersPage = () => {
   const [users, setUsers] = useState<FullTelegramUserType[] | null>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const fetchUsers = async () => {
+    setIsLoading(true);
     const users = await getAllUsers();
     setUsers(users);
     setIsLoading(false);
@@ -38,7 +38,6 @@ const UsersPage = () => {
 
   return (
     <div className="w-full h-full p-10">
-      <UserStatistic users={users} />
       <UserTable users={users} />
     </div>
   );
