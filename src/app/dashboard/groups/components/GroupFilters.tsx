@@ -26,7 +26,7 @@ const GroupFilters = ({ faculties, setColumnFilters }: GroupFiltersProps) => {
       if (prev.find((filter) => filter.id === "faculty")) {
         return [
           ...prev.filter((filter) => filter.id !== "faculty"),
-          { id: "studyType", value: facultyId },
+          { id: "faculty", value: facultyId },
         ];
       }
 
