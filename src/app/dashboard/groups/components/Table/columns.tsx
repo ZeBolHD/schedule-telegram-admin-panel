@@ -1,12 +1,12 @@
-import { useState } from "react";
 import Link from "next/link";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { ArrowUpDown } from "lucide-react";
 import { Faculty } from "@prisma/client";
 
 import { FullGroupType } from "@/types";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
+import TableHeaderSortButton from "@/components/TableHeaderSortButton";
 
 import GroupCellActions from "./GroupCellActions";
 
@@ -38,18 +38,7 @@ const columns: ColumnDef<FullGroupType>[] = [
   },
   {
     accessorKey: "id",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          className="w-full"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Id
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
+    header: ({ column }) => <TableHeaderSortButton column={column} name="Id" />,
     cell: ({ row }) => <div className="text-center">{row.getValue("id")}</div>,
     size: 30,
     maxSize: 30,
@@ -100,36 +89,18 @@ const columns: ColumnDef<FullGroupType>[] = [
   },
   {
     accessorKey: "grade",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          className="w-full"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Grade
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
+    header: ({ column }) => (
+      <TableHeaderSortButton column={column} name="Grade" />
+    ),
     cell: ({ row }) => (
       <div className="text-center">{row.getValue("grade")}</div>
     ),
   },
   {
     accessorKey: "_count",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          className="w-full"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Users
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
+    header: ({ column }) => (
+      <TableHeaderSortButton column={column} name="Users" />
+    ),
     cell: ({ row }) => {
       return (
         <div className="text-center">

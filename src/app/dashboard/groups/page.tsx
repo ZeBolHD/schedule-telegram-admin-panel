@@ -13,10 +13,10 @@ import ErrorFetchBlock from "@/components/ErrorBlock";
 import { TableGroupsDataContext } from "@/context/TableGroupsDataContext";
 import getAllFaculties from "@/actions/getAllFaculties";
 
-import GroupTable from "./components/GroupTable";
 import GroupCreate from "./components/GroupCreate";
 import GroupAddSchedule from "./components/GroupAddSchedule";
 import GroupFilters from "./components/GroupFilters";
+import GroupTable from "./components/Table";
 
 const GroupsPage = () => {
   const { groups, isLoading, refetch } = useContext(TableGroupsDataContext);

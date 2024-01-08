@@ -3,10 +3,9 @@
 import { useState } from "react";
 import {
   ColumnFiltersState,
+  PaginationState,
   RowSelectionState,
-  SortingState,
   Updater,
-  VisibilityState,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
@@ -45,13 +44,14 @@ const GroupTable = ({
   columnFilters,
   setColumnFilters,
 }: TableProps) => {
-  const [sorting, setSorting] = useState<SortingState>([]);
-  const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 10 });
+  const [pagination, setPagination] = useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: 10,
+  });
 
   const table = useReactTable({
     data: groups,
     columns,
-    onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
@@ -60,10 +60,9 @@ const GroupTable = ({
     onRowSelectionChange: onRowSelectionChange,
     onPaginationChange: setPagination,
     state: {
-      sorting,
       columnFilters,
       rowSelection,
-      pagination: pagination,
+      pagination,
     },
   });
 

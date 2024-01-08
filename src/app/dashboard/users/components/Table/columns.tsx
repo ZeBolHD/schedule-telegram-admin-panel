@@ -3,6 +3,7 @@ import { ArrowUpDown } from "lucide-react";
 
 import { FullTelegramUserType } from "@/types";
 import { Button } from "@/components/ui/button";
+import TableHeaderSortButton from "@/components/TableHeaderSortButton";
 
 const columns: ColumnDef<FullTelegramUserType>[] = [
   {
@@ -16,22 +17,14 @@ const columns: ColumnDef<FullTelegramUserType>[] = [
   { accessorKey: "username", header: "User Name" },
   {
     accessorKey: "createdAt",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          className="w-full"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Created At
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
+    header: ({ column }) => (
+      <TableHeaderSortButton column={column} name="Created At" />
+    ),
     cell: ({ row }) => {
       const date = new Date(row.getValue("createdAt"));
+      const dateString = date.toLocaleDateString();
 
-      return <div>{date.toLocaleDateString()}</div>;
+      return <div>{dateString}</div>;
     },
   },
   {
