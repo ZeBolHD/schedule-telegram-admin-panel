@@ -40,18 +40,30 @@ const Profile = ({}: ProfileProps) => {
         </Button>
       </div>
       <Modal isOpen={isModalOpen} onClose={toggleModal}>
-        <CardHeader className="text-center">
-          <h3 className="text-xl">Are you sure you want to logout?</h3>
+        <CardHeader>
+          <h3 className="text-lg">Logout</h3>
         </CardHeader>
+        <CardContent>
+          <p className="text-md">You will be logged out.</p>
+        </CardContent>
         <CardFooter>
-          <Button
-            type="button"
-            className="w-full"
-            variant={"destructive"}
-            onClick={handleSignOut}
-          >
-            Logout
-          </Button>
+          <div className="w-full flex justify-end">
+            <Button
+              type="button"
+              variant={"outline"}
+              onClick={toggleModal}
+              className="mr-5"
+            >
+              Cancel
+            </Button>
+            <Button
+              type="button"
+              variant={"destructive"}
+              onClick={handleSignOut}
+            >
+              Logout
+            </Button>
+          </div>
         </CardFooter>
       </Modal>
     </>

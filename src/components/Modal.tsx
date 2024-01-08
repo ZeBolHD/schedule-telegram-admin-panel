@@ -31,17 +31,7 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
     bg-black bg-opacity-30 backdrop-blur-sm z-10"
       onClick={onClickModal}
     >
-      <Card className="absolute  w-[500px] text-black z-50">
-        <button
-          className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center 
-        text-white text-xl bg-red-500 rounded-full"
-          type="button"
-          onClick={onClose}
-        >
-          <X color="white" />
-        </button>
-        {children}
-      </Card>
+      <Card className="absolute  w-[500px] text-black z-50">{children}</Card>
     </div>,
     portal!
   );
