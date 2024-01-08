@@ -13,8 +13,8 @@ import {
 import { Button } from "@/components/ui/button";
 import Modal from "@/components/Modal";
 
-import GroupEditModal from "./GroupEditModal";
 import GroupDeleteModal from "./GroupDeleteModal";
+import GroupEditModal from "./GroupEditModal";
 
 interface GroupCellActionsProps {
   row: Row<FullGroupType>;
@@ -41,13 +41,13 @@ const GroupCellActions = ({ row }: GroupCellActionsProps) => {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="h-8 w-8 p-0">
-            <span className="sr-only">Open menu</span>
+            <span className="sr-only">Открыть меню</span>
             <MoreHorizontal className="h-4 w-4" />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuItem onClick={openEditModal}>Edit</DropdownMenuItem>
-          <DropdownMenuItem onClick={openDeleteModal}>Delete</DropdownMenuItem>
+          <DropdownMenuItem onClick={openEditModal}>Изменить</DropdownMenuItem>
+          <DropdownMenuItem onClick={openDeleteModal}>Удалить</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
       <Modal isOpen={isModalOpen} onClose={toggleModal}>

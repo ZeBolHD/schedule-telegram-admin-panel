@@ -31,32 +31,32 @@ const AnnouncementCard = () => {
     setIsLoading(false);
 
     if (res) {
-      toast.success("Announcement sent successfully");
+      toast.success("Объявление успешно отправлено");
       reset();
       return;
     }
 
-    toast.error("Something went wrong");
+    toast.error("Что-то пошло не так");
   };
 
   return (
     <Card>
       <CardHeader>
-        <h3 className="text-xl">Announcements</h3>
+        <h3 className="text-xl">Объявление</h3>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
             <Label htmlFor="heading" className="mb-1">
-              Heading
+              Заголовок
             </Label>
             <Input
               id="heading"
               {...register("heading", {
-                required: "This field is required",
+                required: "Это поле обязательно для заполнения",
               })}
               className="w-full mt-2"
-              placeholder="Heading"
+              placeholder="Заголовок"
             />
             {errors.heading && (
               <p className="text-red-500 mt-1 text-sm">
@@ -66,23 +66,35 @@ const AnnouncementCard = () => {
           </div>
           <div className="mt-5">
             <Label htmlFor="content" className="mb-1">
-              Content
+              Текст
             </Label>
             <Textarea
               id="content"
-              {...register("content", { required: "This field is required" })}
+              {...register("content", {
+                required: "Это поле обязательно для заполнения",
+              })}
               className="w-full mt-2"
-              placeholder="Content"
+              placeholder="Текст"
             />
             {errors.content && (
               <p className="text-red-500 mt-1 text-sm">
                 {errors.content.message}
               </p>
             )}
+            <p className="text-sm text-zinc-500 mt-2">
+              Поддерживается текстовая разметка по{" "}
+              <a
+                href="https://core.telegram.org/bots/api#markdownv2-style"
+                className="underline"
+              >
+                ссылке
+              </a>
+              .
+            </p>
           </div>
 
           <Button type="submit" disabled={isLoading} className="w-full mt-5">
-            {isLoading ? <LoadingSpinner size={20} /> : "Send"}
+            {isLoading ? <LoadingSpinner size={20} /> : "Отправить"}
           </Button>
         </form>
       </CardContent>

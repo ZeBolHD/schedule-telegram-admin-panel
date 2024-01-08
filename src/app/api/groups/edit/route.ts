@@ -89,7 +89,7 @@ export async function POST(req: NextRequest) {
       );
 
       if (chatIds.length > 0) {
-        const text = "New schedule has been added!";
+        const text = "Ваше расписание изменено!";
 
         for (let chatId of chatIds) {
           const url = TELEGRAM_SENDDOCUMENT_URL;

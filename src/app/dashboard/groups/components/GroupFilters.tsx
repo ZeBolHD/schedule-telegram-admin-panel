@@ -51,13 +51,13 @@ const GroupFilters = ({ faculties, setColumnFilters }: GroupFiltersProps) => {
       <div className="w-80">
         <Select onValueChange={changeFacultyFilter}>
           <SelectTrigger>
-            <SelectValue placeholder="Select a faculty" />
+            <SelectValue placeholder="Факультет" />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              <SelectLabel>Faculties</SelectLabel>
+              <SelectLabel>Факультеты</SelectLabel>
               <SelectItem value="None" className="cursor-pointer">
-                None
+                Любой
               </SelectItem>
               {faculties.map((faculty) => (
                 <SelectItem
@@ -75,19 +75,19 @@ const GroupFilters = ({ faculties, setColumnFilters }: GroupFiltersProps) => {
       <div className="w-60 ml-5">
         <Select onValueChange={changeStudyTypeFilter}>
           <SelectTrigger>
-            <SelectValue placeholder="Select a study type" />
+            <SelectValue placeholder="Форма обучения" />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              <SelectLabel>Study Types</SelectLabel>
+              <SelectLabel>Форма обучения</SelectLabel>
               <SelectItem value="None" className="cursor-pointer">
-                None
+                Любая
               </SelectItem>
               <SelectItem value="0" className="cursor-pointer">
-                Full-Time
+                Очная
               </SelectItem>
               <SelectItem value="1" className="cursor-pointer">
-                Part-Time
+                Заочная
               </SelectItem>
             </SelectGroup>
           </SelectContent>

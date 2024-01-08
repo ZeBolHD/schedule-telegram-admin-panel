@@ -9,7 +9,7 @@ const Header = ({}: HeaderProps) => {
     <header className="w-full border-b-2 box-border border-zinc-700 flex items-center py-5 px-10 justify-between">
       <div>
         <h1 className="text-2xl">
-          <Link href="/dashboard">Admin Panel</Link>
+          <Link href="/dashboard">Админ панель</Link>
         </h1>
       </div>
       <div>

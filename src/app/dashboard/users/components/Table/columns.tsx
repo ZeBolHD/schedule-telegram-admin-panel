@@ -12,13 +12,13 @@ const columns: ColumnDef<FullTelegramUserType>[] = [
   },
   {
     accessorKey: "first_name",
-    header: "First Name",
+    header: "Имя",
   },
-  { accessorKey: "username", header: "User Name" },
+  { accessorKey: "username", header: "Имя пользователя" },
   {
     accessorKey: "createdAt",
     header: ({ column }) => (
-      <TableHeaderSortButton column={column} name="Created At" />
+      <TableHeaderSortButton column={column} name="Дата создания" />
     ),
     cell: ({ row }) => {
       const date = new Date(row.getValue("createdAt"));
@@ -29,7 +29,7 @@ const columns: ColumnDef<FullTelegramUserType>[] = [
   },
   {
     accessorKey: "userWithGroup",
-    header: "Following Groups",
+    header: "Группы",
     cell: ({ row }) => {
       const userWithGroup = row.getValue(
         "userWithGroup"

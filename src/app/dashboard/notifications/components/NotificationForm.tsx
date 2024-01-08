@@ -7,8 +7,8 @@ const NotificationCard = () => {
   return (
     <Tabs defaultValue="news">
       <TabsList className="grid w-full grid-cols-2">
-        <TabsTrigger value="news">News</TabsTrigger>
-        <TabsTrigger value="announcements">Announcements</TabsTrigger>
+        <TabsTrigger value="news">Новость</TabsTrigger>
+        <TabsTrigger value="announcements">Объявление</TabsTrigger>
       </TabsList>
       <TabsContent value="news">
         <NewsCard />

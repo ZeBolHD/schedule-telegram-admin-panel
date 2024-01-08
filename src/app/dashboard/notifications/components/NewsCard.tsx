@@ -31,29 +31,29 @@ const NewsCard = () => {
     setIsLoading(false);
 
     if (res) {
-      toast.success("News sent successfully");
+      toast.success("Новость успешно отправлена");
       reset();
       return;
     }
 
-    toast.error("Something went wrong");
+    toast.error("Что-то пошло не так");
   };
 
   return (
     <Card>
       <CardHeader>
-        <h3 className="text-xl">News</h3>
+        <h3 className="text-xl">Новость</h3>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
             <Label htmlFor="heading" className="mb-1">
-              Heading
+              Заголовок
             </Label>
             <Input
-              {...register("heading", { required: "This field is required" })}
+              {...register("heading", { required: "Это поле обязательно" })}
               className="w-full mt-2"
-              placeholder="Heading"
+              placeholder="Заголовок"
             />
             {errors.heading && (
               <p className="text-red-500 mt-1 text-sm">
@@ -63,7 +63,7 @@ const NewsCard = () => {
           </div>
 
           <div className="mt-5">
-            <Label>Images</Label>
+            <Label>Изображения</Label>
             <Input
               {...register("images")}
               type="file"
@@ -75,22 +75,33 @@ const NewsCard = () => {
 
           <div className="mt-5">
             <Label htmlFor="content" className="mb-1">
-              Content
+              Текст
             </Label>
             <Textarea
-              {...register("content", { required: "This field is required" })}
+              {...register("content", { required: "Это поле обязательно" })}
               className="w-full mt-2"
-              placeholder="Content"
+              placeholder="Текст"
             />
             {errors.content && (
               <p className="text-red-500 mt-1 text-sm">
                 {errors.content.message}
               </p>
             )}
+
+            <p className="text-sm text-zinc-500 mt-2">
+              Поддерживается текстовая разметка по{" "}
+              <a
+                href="https://core.telegram.org/bots/api#markdownv2-style"
+                className="underline"
+              >
+                ссылке
+              </a>
+              .
+            </p>
           </div>
 
           <Button type="submit" disabled={isLoading} className="w-full mt-5">
-            {isLoading ? <LoadingSpinner size={20} /> : "Send"}
+            {isLoading ? <LoadingSpinner size={20} /> : "Отправить"}
           </Button>
         </form>
       </CardContent>

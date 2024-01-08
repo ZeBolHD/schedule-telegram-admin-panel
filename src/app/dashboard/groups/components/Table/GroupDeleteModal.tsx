@@ -28,24 +28,24 @@ const GroupDeleteModal = ({ id, code, onClose }: GroupDeleteModal) => {
       onClose();
       setIsLoading(false);
       refetch();
-      toast.success(`Group ${code} deleted successfully`);
+      toast.success(`Группа ${code} успешно удалена`);
     } catch (e) {
       setIsLoading(false);
-      toast.error("Something went wrong");
+      toast.error("Что-то пошло не так");
     }
   };
 
   return (
     <div>
       <CardHeader>
-        <h2> Delete Group</h2>
+        <h3 className="text-lg">Удаление группы</h3>
       </CardHeader>
       <CardContent>
-        <p>Are you sure you want to delete group {code}?</p>
+        <p>Вы уверены, что хотите удалить группу {code}?</p>
       </CardContent>
       <CardFooter className="justify-end">
         <Button variant="ghost" onClick={onClose} disabled={isLoading}>
-          Cancel
+          Отмена
         </Button>
         <Button
           variant="destructive"
@@ -53,7 +53,7 @@ const GroupDeleteModal = ({ id, code, onClose }: GroupDeleteModal) => {
           disabled={isLoading}
           onClick={onGroupDelete}
         >
-          {isLoading ? <LoadingSpinner size={20} /> : "Delete"}
+          {isLoading ? <LoadingSpinner size={20} /> : "Удалить"}
         </Button>
       </CardFooter>
     </div>

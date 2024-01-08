@@ -36,15 +36,15 @@ const Profile = ({}: ProfileProps) => {
           onClick={toggleModal}
           className="ml-10"
         >
-          Logout
+          Выйти
         </Button>
       </div>
       <Modal isOpen={isModalOpen} onClose={toggleModal}>
         <CardHeader>
-          <h3 className="text-lg">Logout</h3>
+          <h3 className="text-lg">Выход</h3>
         </CardHeader>
         <CardContent>
-          <p className="text-md">You will be logged out.</p>
+          <p className="text-md">Вы действительно хотите выйти?</p>
         </CardContent>
         <CardFooter>
           <div className="w-full flex justify-end">
@@ -54,14 +54,14 @@ const Profile = ({}: ProfileProps) => {
               onClick={toggleModal}
               className="mr-5"
             >
-              Cancel
+              Отмена
             </Button>
             <Button
               type="button"
               variant={"destructive"}
               onClick={handleSignOut}
             >
-              Logout
+              Выйти
             </Button>
           </div>
         </CardFooter>

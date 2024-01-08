@@ -45,7 +45,7 @@ const columns: ColumnDef<FullGroupType>[] = [
   },
   {
     accessorKey: "code",
-    header: () => <div className="w-full text-center">Code</div>,
+    header: () => <div className="w-full text-center">Номер</div>,
     cell: ({ row }) => (
       <div className="text-center">{row.getValue("code")}</div>
     ),
@@ -53,7 +53,7 @@ const columns: ColumnDef<FullGroupType>[] = [
   {
     id: "faculty",
     accessorKey: "faculty",
-    header: () => <div className="w-full text-center">Faculty</div>,
+    header: () => <div className="w-full text-center">Факультет</div>,
     cell: ({ row }) => {
       const facultyName = (row.getValue("faculty") as Faculty).name;
 
@@ -70,10 +70,9 @@ const columns: ColumnDef<FullGroupType>[] = [
   {
     id: "studyType",
     accessorKey: "studyType",
-    header: () => <div className="w-full text-center">Study Type</div>,
+    header: () => <div className="w-full text-center">Форма обучения</div>,
     cell: ({ row }) => {
-      const studyType =
-        row.getValue("studyType") === 0 ? "Full-Time" : "Part-Time";
+      const studyType = row.getValue("studyType") === 0 ? "Очная" : "Заочная";
 
       return <div className="text-center">{studyType}</div>;
     },
@@ -90,7 +89,7 @@ const columns: ColumnDef<FullGroupType>[] = [
   {
     accessorKey: "grade",
     header: ({ column }) => (
-      <TableHeaderSortButton column={column} name="Grade" />
+      <TableHeaderSortButton column={column} name="Курс" />
     ),
     cell: ({ row }) => (
       <div className="text-center">{row.getValue("grade")}</div>
@@ -99,7 +98,7 @@ const columns: ColumnDef<FullGroupType>[] = [
   {
     accessorKey: "_count",
     header: ({ column }) => (
-      <TableHeaderSortButton column={column} name="Users" />
+      <TableHeaderSortButton column={column} name="Пользователи" />
     ),
     cell: ({ row }) => {
       return (
@@ -111,7 +110,7 @@ const columns: ColumnDef<FullGroupType>[] = [
   },
   {
     accessorKey: "fileId",
-    header: () => <div className="text-center">File</div>,
+    header: () => <div className="text-center">Файл</div>,
     cell: ({ row }) => {
       const fileId: Pick<FullGroupType, "fileId"> = row.getValue("fileId");
 
@@ -120,11 +119,11 @@ const columns: ColumnDef<FullGroupType>[] = [
           {fileId ? (
             <Button className="w-full bg-white text-black hover:bg-gray-300">
               <Link href={`/api/download?file_id=${fileId}`} target="_blank">
-                Download
+                Скачать
               </Link>
             </Button>
           ) : (
-            <div className="w-full text-center">No file</div>
+            <div className="w-full text-center">Файл отсутствует</div>
           )}
         </div>
       );

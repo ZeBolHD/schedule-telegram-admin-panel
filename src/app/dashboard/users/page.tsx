@@ -7,7 +7,7 @@ import LoadingSpinner from "@/components/LoadingSpinner";
 import ErrorFetchBlock from "@/components/ErrorBlock";
 import { FullTelegramUserType } from "@/types";
 
-import UserTable from "./components/Table/UserTable";
+import UserTable from "./components/Table";
 
 const UsersPage = () => {
   const [users, setUsers] = useState<FullTelegramUserType[] | null>([]);

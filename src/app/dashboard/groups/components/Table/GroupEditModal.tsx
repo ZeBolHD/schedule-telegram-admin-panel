@@ -49,12 +49,12 @@ const GroupEditModal = ({ group, onClose }: GroupEditModalProps) => {
     if (!newGroup) {
       setIsLoading(false);
       reset();
-      toast.error("Something went wrong");
+      toast.error("Что-то пошло не так");
       return;
     }
 
     setIsLoading(false);
-    toast.success("Group updated successfully");
+    toast.success("Группа успешно обновлена");
     refetch();
     onClose();
   };
@@ -62,16 +62,16 @@ const GroupEditModal = ({ group, onClose }: GroupEditModalProps) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <CardHeader>
-        <h3 className="text-xl">Edit Group</h3>
+        <h3 className="text-xl">Изменить группу</h3>
       </CardHeader>
       <CardContent>
         <div className="w-full">
-          <h3 className="text-lg">Code: {group.code}</h3>
+          <p className="text-md">Группа: {group.code}</p>
         </div>
 
         <div className="mt-5 w-full">
-          <Label htmlFor="grade" className="text-lg font-normal">
-            Grade
+          <Label htmlFor="grade" className="text-md font-normal">
+            Курс
           </Label>
           <Input
             type="number"
@@ -85,8 +85,8 @@ const GroupEditModal = ({ group, onClose }: GroupEditModalProps) => {
           />
         </div>
         <div className="mt-5 w-full">
-          <Label htmlFor="file" className="text-lg font-normal">
-            Upload file
+          <Label htmlFor="file" className="text-md font-normal">
+            Файл
           </Label>
           <Input
             className="cursor-pointer mt-2"
@@ -120,7 +120,7 @@ const GroupEditModal = ({ group, onClose }: GroupEditModalProps) => {
                   htmlFor="notification"
                   className="text-md font-normal ml-2.5 cursor-pointer"
                 >
-                  Send with notification
+                  Отправить уведомление
                 </Label>
               </>
             )}
@@ -134,7 +134,7 @@ const GroupEditModal = ({ group, onClose }: GroupEditModalProps) => {
           onClick={onClose}
           className="mr-5"
         >
-          Cancel
+          Отмена
         </Button>
         <Button
           type="submit"
@@ -142,7 +142,7 @@ const GroupEditModal = ({ group, onClose }: GroupEditModalProps) => {
           className="bg-blue-500 hover:bg-blue-600"
           disabled={isLoading}
         >
-          {isLoading ? <LoadingSpinner size={20} /> : "Edit"}
+          {isLoading ? <LoadingSpinner size={20} /> : "Изменить"}
         </Button>
       </CardFooter>
     </form>

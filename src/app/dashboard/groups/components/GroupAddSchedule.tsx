@@ -83,18 +83,18 @@ const GroupAddSchedule = ({
         onClick={toggleModal}
         disabled={disabled}
       >
-        Add Schedule To Groups
+        Добавить расписание группам
       </Button>
 
       <Modal isOpen={isModalOpen} onClose={toggleModal}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <CardHeader>
-            <h3>Add Schedule To Groups</h3>
+            <h3 className="text-lg">Добавление расписания</h3>
           </CardHeader>
           <CardContent>
             <div>
               <Label htmlFor="group_codes" className="text-md font-normal">
-                Group Codes:
+                Группы:
               </Label>
               <p id="group_codes" className="text-md">
                 {groupsCodesString}
@@ -102,7 +102,7 @@ const GroupAddSchedule = ({
             </div>
             <div className="mt-5 w-full">
               <Label htmlFor="file" className="text-lg font-normal">
-                Upload file
+                Файл
               </Label>
               <Input
                 className="cursor-pointer mt-2"
@@ -138,7 +138,7 @@ const GroupAddSchedule = ({
                       htmlFor="notification"
                       className="text-md font-normal ml-2.5 cursor-pointer"
                     >
-                      Send with notification
+                      Отправить уведомление
                     </Label>
                   </>
                 )}
@@ -152,14 +152,14 @@ const GroupAddSchedule = ({
               className="mr-5"
               onClick={toggleModal}
             >
-              Cancel
+              Отмена
             </Button>
             <Button
               type="submit"
               className="bg-blue-500 hover:to-blue-600"
               disabled={isLoading}
             >
-              {isLoading ? <LoadingSpinner size={20} /> : "Add Schedule"}
+              {isLoading ? <LoadingSpinner size={20} /> : "Добавить"}
             </Button>
           </CardFooter>
         </form>

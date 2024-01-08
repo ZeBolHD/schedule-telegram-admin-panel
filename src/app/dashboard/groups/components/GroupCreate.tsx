@@ -45,14 +45,14 @@ const GroupCreate = ({ faculties }: GroupCreateProps) => {
       toggleModal();
       reset();
       refetch();
-      toast.success("Group added successfully");
+      toast.success("Группа успешно создана");
       return;
     }
 
     if (status === 409) {
-      toast.error("Group already exists");
+      toast.error("Группа с таким номером уже существует");
     } else {
-      toast.error("Something went wrong");
+      toast.error("Что-то пошло не так");
     }
   };
 
@@ -63,25 +63,29 @@ const GroupCreate = ({ faculties }: GroupCreateProps) => {
         className="px-5 py-5 bg-blue-500 text-white hover:bg-blue-600"
         onClick={toggleModal}
       >
-        Create Group
+        Создать группу
       </Button>
       <Modal isOpen={isModalOpen} onClose={onCloseModal}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <CardHeader>
-            <h3 className="text-lg">Add Group</h3>
+            <h3 className="text-lg">Создание группы</h3>
           </CardHeader>
           <CardContent className="text-lg">
             <div>
-              <Label htmlFor="code">Code</Label>
+              <Label htmlFor="code" className="text-base font-normal">
+                Номер группы
+              </Label>
               <Input
                 {...register("code", { required: true })}
                 type="text"
-                placeholder="Code"
+                placeholder="Например 3001"
                 className="mt-2"
               />
             </div>
             <div className="mt-5">
-              <Label htmlFor="code">Faculty</Label>
+              <Label htmlFor="code" className="text-base font-normal">
+                Факультет
+              </Label>
               <Controller
                 control={control}
                 name="facultyId"
@@ -96,7 +100,7 @@ const GroupCreate = ({ faculties }: GroupCreateProps) => {
                     >
                       <SelectTrigger className="mt-2">
                         <SelectValue
-                          placeholder="Select a faculty"
+                          placeholder="Выберите факультет"
                           id="facultyId"
                         />
                       </SelectTrigger>
@@ -116,7 +120,9 @@ const GroupCreate = ({ faculties }: GroupCreateProps) => {
               />
             </div>
             <div className="mt-5">
-              <Label htmlFor="studyType">Study Type</Label>
+              <Label htmlFor="studyType" className="text-base font-normal">
+                Форма обучения
+              </Label>
               <Controller
                 control={control}
                 name="studyType"
@@ -130,11 +136,11 @@ const GroupCreate = ({ faculties }: GroupCreateProps) => {
                       required
                     >
                       <SelectTrigger className="mt-2">
-                        <SelectValue placeholder="Study Type" />
+                        <SelectValue placeholder="Выберите форму обучения" />
                       </SelectTrigger>
                       <SelectContent position="popper">
-                        <SelectItem value="0">Full Time</SelectItem>
-                        <SelectItem value="1">Part Time</SelectItem>
+                        <SelectItem value="0">Очная</SelectItem>
+                        <SelectItem value="1">Заочная</SelectItem>
                       </SelectContent>
                     </Select>
                   );
@@ -142,12 +148,13 @@ const GroupCreate = ({ faculties }: GroupCreateProps) => {
               />
             </div>
             <div className="mt-5">
-              <Label htmlFor="grade" className="text-lg">
-                Grade
+              <Label htmlFor="grade" className="text-base font-normal">
+                Курс
               </Label>
               <Input
                 {...register("grade", { required: true })}
                 type="number"
+                placeholder="4"
                 max={6}
                 min={1}
                 className="mt-2"
@@ -162,10 +169,10 @@ const GroupCreate = ({ faculties }: GroupCreateProps) => {
                 onClick={onCloseModal}
                 className="mr-5"
               >
-                Cancel
+                Отмена
               </Button>
               <Button type="submit" className="bg-blue-500 hover:bg-blue-600">
-                Add
+                Создать
               </Button>
             </div>
           </CardFooter>

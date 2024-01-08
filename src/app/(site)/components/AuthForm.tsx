@@ -35,12 +35,12 @@ const AuthForm = () => {
 
   const checkCredentials = (callback: SignInResponse) => {
     if (!callback.error && callback.ok) {
-      toast.success("Logged in");
+      toast.success("Вы успешно вошли");
       router.push("/dashboard");
     }
 
     if (callback.error) {
-      toast.error("Wrong credentials");
+      toast.error("Неверные данные");
     }
   };
 
@@ -65,11 +65,11 @@ const AuthForm = () => {
     <Card className="w-96 bg-white rounded-md flex flex-col text-black">
       <form onSubmit={handleSubmit(onSubmit)}>
         <CardHeader>
-          <h3 className="text-xl">Welcome to admin panel</h3>
+          <h3 className="text-xl">Добро пожаловать в админ панель</h3>
         </CardHeader>
         <CardContent>
           <div className="">
-            <Label htmlFor="username">Username</Label>
+            <Label htmlFor="username">Имя пользователя</Label>
             <Input
               type="text"
               className="mt-3"
@@ -77,7 +77,7 @@ const AuthForm = () => {
             />
           </div>
           <div className="mt-5">
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password">Пароль</Label>
             <Input
               type="password"
               className="mt-3"
@@ -87,7 +87,7 @@ const AuthForm = () => {
         </CardContent>
         <CardFooter>
           <Button type="submit" variant={"default"} className="w-full">
-            Login
+            Войти
           </Button>
         </CardFooter>
       </form>

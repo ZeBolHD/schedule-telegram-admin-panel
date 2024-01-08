@@ -8,19 +8,19 @@ const useRoutes = () => {
   const routes = useMemo(() => {
     return [
       {
-        label: "Users",
+        label: "Пользователи",
         href: "/dashboard/users",
         icon: UserRound,
         active: pathname === "/dashboard/users",
       },
       {
-        label: "Groups",
+        label: "Группы",
         href: "/dashboard/groups",
         icon: Users,
         active: pathname === "/dashboard/groups",
       },
       {
-        label: "Noficications",
+        label: "Уведомления",
         href: "/dashboard/notifications",
         icon: BellRing,
         active: pathname === "/dashboard/notifications",

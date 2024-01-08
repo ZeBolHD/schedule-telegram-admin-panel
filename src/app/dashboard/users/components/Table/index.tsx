@@ -96,7 +96,7 @@ const UserTable = ({ users }: UsersTableProps) => {
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                  Нет данных.
                 </TableCell>
               </TableRow>
             )}
@@ -104,7 +104,7 @@ const UserTable = ({ users }: UsersTableProps) => {
         </Table>
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
-        <div className="flex-1 text-sm">Total {userCount} users</div>
+        <div className="flex-1 text-sm">Всего {userCount} пользователей</div>
         <div className="space-x-2">
           <Button
             variant="outline"
@@ -113,7 +113,7 @@ const UserTable = ({ users }: UsersTableProps) => {
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           >
-            Previous
+            Назад
           </Button>
           <Button
             variant="outline"
@@ -122,7 +122,7 @@ const UserTable = ({ users }: UsersTableProps) => {
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >
-            Next
+            Вперед
           </Button>
         </div>
       </div>
