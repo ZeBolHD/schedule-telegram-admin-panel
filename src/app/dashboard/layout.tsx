@@ -11,12 +11,14 @@ interface DashBoardLayoutProps {
 
 const layout = ({ children }: DashBoardLayoutProps) => {
   return (
-    <div className="w-full h-[calc(100vh-82px)]">
+    <div className="w-full">
       <Header />
-      <div className="w-full max-h-full h-full flex">
+      <div className="w-full min-h-full flex overflow-hidden">
         <SideBar />
         <TableGroupsDataContextProvider>
-          <main className="w-full max-h-full">{children}</main>
+          <main className="w-full h-[calc(100vh-82px)] overflow-auto">
+            {children}
+          </main>
         </TableGroupsDataContextProvider>
       </div>
     </div>

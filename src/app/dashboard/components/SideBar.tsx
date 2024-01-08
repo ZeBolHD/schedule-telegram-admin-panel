@@ -8,7 +8,7 @@ const SideBar = () => {
   const routes = useRoutes();
 
   return (
-    <aside className="w-1/6 py-10 px-5 border-r-2 border-white box-border">
+    <aside className="w-1/6 py-10 px-5 border-r-2 border-zinc-700 box-border">
       <ul className="">
         {routes.map(({ label, href, icon: Icon, active }) => (
           <li

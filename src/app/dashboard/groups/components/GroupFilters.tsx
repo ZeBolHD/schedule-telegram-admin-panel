@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { Faculty } from "@prisma/client";
 import { ColumnFiltersState, Updater } from "@tanstack/react-table";
 
