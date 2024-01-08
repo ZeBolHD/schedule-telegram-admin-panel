@@ -155,12 +155,19 @@ const GroupCreate = ({ faculties }: GroupCreateProps) => {
             </div>
           </CardContent>
           <CardFooter>
-            <Button
-              type="submit"
-              className="w-full bg-blue-500 hover:bg-blue-600"
-            >
-              Add
-            </Button>
+            <div className="w-full flex justify-end">
+              <Button
+                type="button"
+                variant="ghost"
+                onClick={onCloseModal}
+                className="mr-5"
+              >
+                Cancel
+              </Button>
+              <Button type="submit" className="bg-blue-500 hover:bg-blue-600">
+                Add
+              </Button>
+            </div>
           </CardFooter>
         </form>
       </Modal>
