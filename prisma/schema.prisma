@@ -41,8 +41,7 @@ model Group {
 model UserWithSubscription {
   userId                String
   user                  TelegramUser @relation(fields: [userId], references: [id], onDelete: Cascade)
-  subscriptionId        Int
-  subscription          Subscription @relation(fields: [subscriptionId], references: [id])
+  subscriptionId        Int 
 
   @@id([userId, subscriptionId])
 }
@@ -51,12 +50,6 @@ model Faculty {
   id                    Int @id @default(autoincrement())
   name                  String
   groups                Group[]
-}
-
-model Subscription {
-  id                    Int @id @default(autoincrement())
-  name                  String
-  userWithSubscription  UserWithSubscription[]
 }
 
 model User {
