@@ -92,6 +92,7 @@ const NewsCard = () => {
               Поддерживается текстовая разметка по{" "}
               <a
                 href="https://core.telegram.org/bots/api#markdownv2-style"
+                target="_blank"
                 className="underline"
               >
                 ссылке
