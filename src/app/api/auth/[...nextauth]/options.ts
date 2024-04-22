@@ -26,13 +26,15 @@ const authOptions: AuthOptions = {
           },
         });
 
-        if (!user || !user?.hashedPassword) {
+        console.log(credentials);
+
+        if (!user || !user?.password) {
           throw new Error("Invalid credentials");
         }
 
         const isCorrectPassword = await bcrypt.compare(
           credentials.password,
-          user.hashedPassword
+          user.password
         );
 
         if (!isCorrectPassword) {
